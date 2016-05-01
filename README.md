@@ -1,4 +1,5 @@
 # PythonStudy
 Python2.7 Study
-- Function  
-- Matplot  
+- [Basic](./function_test.py)
+- [Bar Chart](./plot)
+- [Functional Features](./functional_test.py)
