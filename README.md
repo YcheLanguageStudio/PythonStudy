@@ -1,5 +1,8 @@
-# PythonStudy
-##Python2.7 Study
+# Python Study
+##Description
+This is a repository to record my journey of Python 2.7 study, which covers crawler, regex, os/sys, functional programming and scientific figures drawing.
+
+##Python2.7 Study Category
 - [Basic](./function_test.py)
 - [Bar Chart](./plot)
 - [Crawler](./crawler)
