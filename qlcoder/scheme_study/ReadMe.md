@@ -1,2 +1,4 @@
 - interpretor: https://repl.it/languages/scheme
 - study　material: http://www.ibm.com/developerworks/cn/linux/l-schm/index1.html
+- scheme中list 就相当于一棵二叉树
+- ()就类似于c++里面的分号结束一行
