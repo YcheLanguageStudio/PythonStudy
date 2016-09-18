@@ -8,13 +8,9 @@ This is a repository to record my Python 2.7 study.
 - Fucntional Related
     - [Basic Usage](functional/function_test.py)
     - [Functional Features](functional/functional_test.py)
-
 - [Regex](string_regex/regex_test.py)
-
 - [OS/Sys](./os)
-
 - [Crawler](./crawler)
-
 - Visualization
     - [Bar Chart](./plot)
 

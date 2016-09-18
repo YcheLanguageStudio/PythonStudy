@@ -9,4 +9,9 @@ if __name__ == '__main__':
     for element in my_list:
         print element
 
+    print '.....'
+
+    for i in range(0,len(my_list)):
+        print my_list[i]
+
     print 'Totoal len:' + str(len(my_list))
