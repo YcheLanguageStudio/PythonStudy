@@ -3,12 +3,12 @@
 This is a repository to record my journey of Python 2.7 study, which covers crawler, regex, os/sys, functional programming and scientific figures drawing.
 
 ##Python2.7 Study Category
-- [Basic](./function_test.py)
+- [Basic](functional/function_test.py)
 - [Bar Chart](./plot)
 - [Crawler](./crawler)
-- [Functional Features](./functional_test.py)
+- [Functional Features](functional/functional_test.py)
 - [OS/Sys](./os)
-- [Regex](./regex_test.py)
+- [Regex](string_regex/regex_test.py)
 
 ##Crawler Related Repositories
 - [pyspider by binux](https://github.com/binux/pyspider)        
