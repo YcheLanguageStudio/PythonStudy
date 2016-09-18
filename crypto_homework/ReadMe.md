@@ -1,11 +1,11 @@
 #Crypto Homework Notes
 ##Euclidean Algorithm For greatest common divider(gcd)
 ```python
-def gcd_eucid_algrorithm(left_hand_side, right_hand_side):
-    if right_hand_side == 0:
-        return left_hand_side
+def gcd_euclidean(lhs, rhs):
+    if rhs == 0:
+        return lhs
     else:
-        return gcd_eucid_algrorithm(right_hand_side, left_hand_side % right_hand_side)
+        return gcd_euclidean(rhs, lhs % rhs)
 ```
 
 ##Extended Euclidean Algorithm
