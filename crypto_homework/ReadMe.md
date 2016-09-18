@@ -71,6 +71,37 @@ transposition cipher, it just simply transpose the whole plaintext without any s
 So, in conclusion, if after we apply the above methodology on the 20000-length text, the text becomes much more readable,
  then it is substitution cipher, else it is transposition cipher.
 
+##Q3 Answer
+- mapping function
+a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
+--- | --- | --- | --- | --- | --- | --- | --- | --- | --- |--- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
+Y | L | X | U | W | Z | C | A | D | E | F | B | G | I | V | H | O | K | R | Q | P | T | N | J | M | S
+
+> a legacy of atmospheric atomic bomb testing is present in an unlikely
+place: people's teeth. according to a report published today in the
+journal nature, bomb-generated carbon isotopes trapped in tooth enamel
+may provide a more precise method for determining a deceased individual's
+age than other forensic method scan.
+
+> the above ground nuclear tests that occurred between 1955 and 1963
+dramatically increased the amount of the isotope carbon 14 in the
+atmosphere. the levels rapidly equalized around the globe, even
+though the explosions occurred at only a few locations, and entered
+plants in the food chain through photosynthesis. by eatingp lants,
+and animals that feed on plants, humans absorb carbon 14 and exhibit
+levelsof the benign, traceable isotope that aresimilar toatmospheric
+concentrations. whatismore, carbon 14 decays witha half-life of
+5,730 years, a phenomenon that scientists can exploit as away to
+determine the ages of objects that contain the isotope. for the new
+study, jonasfrisen of the medical nobel institute in stockholm,
+sweden, and his colleagues analyzed the carbon content of toothe namel.
+because teeth do not exhibit any turn over during a person's life,
+the scientists can determine when a tooth formed by comparing its
+carbon 14 content to past atmospheric levels. in addition, adult
+teeth form during a distinct period of childhood development around
+age 12, so this information can be translated into the age of an
+individual.
+
 ##Q4 Substitution Cipher
 - Implementation
 ```python
