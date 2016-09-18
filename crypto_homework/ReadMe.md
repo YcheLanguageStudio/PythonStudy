@@ -69,6 +69,9 @@ iter:2	|	r:5	|	q:4	  |	x:-4	|	y:157
 iter:3	|	r:1	|	q:1	 | x:5	|	y:-196
 iter:4	|	r:0	|	q:5 |  None | None
 
+- Answer:
+the multiplicative inverse of (29 modulo 1137) is -196, since (29 * (-196)) % 1137 = 1
+
 ##Q2 Tranposition Cipher & Substitution Cipher
 Substitution Cipher, includes a one-to-one mapping-function from the english letters domain to english letters domain. So
 it is possible to do some statistical analysis, based on the common frequency distribution of english letters, and in Q2
@@ -83,11 +86,13 @@ So, in conclusion, if after we apply the above methodology on the 20000-length t
  then it is substitution cipher, else it is transposition cipher.
 
 ##Q3 Answer
-- mapping function
+- one-to-one mapping function, i.e, symmetric key:
 
 a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
 --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |--- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
 Y | L | X | U | W | Z | C | A | D | E | F | B | G | I | V | H | O | K | R | Q | P | T | N | J | M | S
+
+- original text:
 
 > a legacy of atmospheric atomic bomb testing is present in an unlikely
 place: people's teeth. according to a report published today in the
@@ -150,7 +155,7 @@ def cipher(msg, k0, k1):
 print cipher('lecture',3,1)
 ```
 
-- Result
+- Result:`inhgjan`
 ```zsh
 ['i', 'n', 'h', 'g', 'j', 'a', 'n']
 ```
