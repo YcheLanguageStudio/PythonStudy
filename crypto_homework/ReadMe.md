@@ -58,6 +58,17 @@ print '\n'
 test_extended_gcd_eculidean(1137, 29)
 ```
 
+- Result:
+
+i | r | q | x | y
+--- | --- | --- | --- | --- |
+iter:-1	 |	r:1137	|	q:None	|	x:1		| y:0
+iter:0	 |	r:29	|	q:None	|	x:0	|	y:1
+iter:1	|	r:6	|	q:39  |		x:1	|	y:-39
+iter:2	|	r:5	|	q:4	  |	x:-4	|	y:157
+iter:3	|	r:1	|	q:1	 | x:5	|	y:-196
+iter:4	|	r:0	|	q:5 |  None | None
+
 ##Q2 Tranposition Cipher & Substitution Cipher
 Substitution Cipher, includes a one-to-one mapping-function from the english letters domain to english letters domain. So
 it is possible to do some statistical analysis, based on the common frequency distribution of english letters, and in Q2
@@ -137,4 +148,9 @@ def cipher(msg, k0, k1):
 - Usage
 ```python
 print cipher('lecture',3,1)
+```
+
+- Result
+```zsh
+['i', 'n', 'h', 'g', 'j', 'a', 'n']
 ```
