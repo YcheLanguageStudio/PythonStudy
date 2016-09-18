@@ -1,5 +1,5 @@
 #Crypto Homework Notes
-##Euclidean Algorithm For greatest common divider(gcd)
+##Q1 Euclidean Algorithm For greatest common divider(gcd)
 ```python
 def gcd_euclidean(lhs, rhs):
     if rhs == 0:
@@ -8,7 +8,7 @@ def gcd_euclidean(lhs, rhs):
         return gcd_euclidean(rhs, lhs % rhs)
 ```
 
-##Extended Euclidean Algorithm
+##Q1 Extended Euclidean Algorithm
 - Imlementation:
 ```python
 class ExtendedGcdEuclidean:
@@ -58,7 +58,7 @@ print '\n'
 test_extended_gcd_eculidean(1137, 29)
 ```
 
-##Tranposition Cipher & Substitution Cipher
+##Q2 Tranposition Cipher & Substitution Cipher
 Substitution Cipher, includes a one-to-one mapping-function from the english letters domain to english letters domain. So
 it is possible to do some statistical analysis, based on the common frequency distribution of english letters, and in Q2
 , we know that 20000 letters are quite enough to conduct such analysis. If we apply this frequency pattern analysis on
