@@ -73,6 +73,7 @@ So, in conclusion, if after we apply the above methodology on the 20000-length t
 
 ##Q3 Answer
 - mapping function
+
 a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
 --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |--- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
 Y | L | X | U | W | Z | C | A | D | E | F | B | G | I | V | H | O | K | R | Q | P | T | N | J | M | S
