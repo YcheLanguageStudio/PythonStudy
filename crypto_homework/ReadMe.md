@@ -58,3 +58,51 @@ print '\n'
 test_extended_gcd_eculidean(1137, 29)
 ```
 
+##Tranposition Cipher & Substitution Cipher
+Substitution Cipher, includes a one-to-one mapping-function from the english letters domain to english letters domain. So
+it is possible to do some statistical analysis, based on the common frequency distribution of english letters, and in Q2
+, we know that 20000 letters are quite enough to conduct such analysis. If we apply this frequency pattern analysis on
+the ciphertext, i.e, find a one-to-one mapping-function according to the frequency statistical data, the text which is
+encrypted through subsitution cipher should be readable after being decrypted by the mapping function.
+
+Whereas the above frequency analysis methodology does not fit for the crack of transposition cipher, since according to the definition of
+transposition cipher, it just simply transpose the whole plaintext without any substitution.
+
+So, in conclusion, if after we apply the above methodology on the 20000-length text, the text becomes much more readable,
+ then it is substitution cipher, else it is transposition cipher.
+
+##Q4 Substitution Cipher
+- Implementation
+```python
+class EngIndexBimap:
+    def __init__(self):
+        self.char2index_dict = dict()
+        self.index2char_dict = dict()
+        for i in range(0, 25):
+            self.char2index_dict[chr(ord('a') + i)] = i
+            self.index2char_dict[i] = chr(ord('a') + i)
+
+    def char2index(self, ch):
+        return self.char2index_dict[ch]
+
+    def index2char(self, index):
+        return self.index2char_dict[index]
+
+
+# val from 0 to 25
+def encrpt(letter_index, k0, k1):
+    return (letter_index * k0 + k1) % 26
+
+
+def cipher(msg, k0, k1):
+    my_bimpa = EngIndexBimap()
+    cipher_text = list()
+    for ele in msg:
+        cipher_text.append(my_bimpa.index2char(encrpt(my_bimpa.char2index(ele), k0, k1)))
+    return cipher_text
+```
+
+- Usage
+```python
+print cipher('lecture',3,1)
+```

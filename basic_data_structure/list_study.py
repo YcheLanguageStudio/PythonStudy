@@ -15,3 +15,5 @@ if __name__ == '__main__':
         print my_list[i]
 
     print 'Totoal len:' + str(len(my_list))
+
+    print int('a')

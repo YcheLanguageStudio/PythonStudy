@@ -7,11 +7,11 @@ def gcd_euclidean(lhs, rhs):
 
 class ExtendedGcdEuclidean:
     def __init__(self, lhs, rhs):
-        self.r_list = list([lhs,rhs])
-        self.q_list = list([None,None])
-        self.x_list = list([1,0])
-        self.y_list = list([0,1])
-        self.iter_list = list([-1,0])
+        self.r_list = list([lhs, rhs])
+        self.q_list = list([None, None])
+        self.x_list = list([1, 0])
+        self.y_list = list([0, 1])
+        self.iter_list = list([-1, 0])
         self.is_break = False;
         self.compute_final_result()
 
@@ -45,8 +45,37 @@ def test_extended_gcd_eculidean(lhs, rhs):
             extend_euclidean_algo.r_list[i]) + '\t\tq:' + str(extend_euclidean_algo.q_list[i])
 
 
+class EngIndexBimap:
+    def __init__(self):
+        self.char2index_dict = dict()
+        self.index2char_dict = dict()
+        for i in range(0, 25):
+            self.char2index_dict[chr(ord('a') + i)] = i
+            self.index2char_dict[i] = chr(ord('a') + i)
+
+    def char2index(self, ch):
+        return self.char2index_dict[ch]
+
+    def index2char(self, index):
+        return self.index2char_dict[index]
+
+
+# val from 0 to 25
+def encrpt(letter_index, k0, k1):
+    return (letter_index * k0 + k1) % 26
+
+
+def cipher(msg, k0, k1):
+    my_bimpa = EngIndexBimap()
+    cipher_text = list()
+    for ele in msg:
+        cipher_text.append(my_bimpa.index2char(encrpt(my_bimpa.char2index(ele), k0, k1)))
+    return cipher_text
+
+
 if __name__ == '__main__':
     print 'Demo gcd of 24 and 36 is:' + str(gcd_euclidean(24, 36)) + '\n'
     test_extended_gcd_eculidean(1759, 550)
     print '\n'
     test_extended_gcd_eculidean(1137, 29)
+    print cipher('lecture', 3, 1)
