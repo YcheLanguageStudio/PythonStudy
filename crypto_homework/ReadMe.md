@@ -9,7 +9,7 @@ def gcd_euclidean(lhs, rhs):
 ```
 
 ##Q1 Extended Euclidean Algorithm
-- Imlementation:
+- Implementation:
 ```python
 class ExtendedGcdEuclidean:
     def __init__(self, lhs, rhs):
@@ -45,21 +45,24 @@ class ExtendedGcdEuclidean:
 
 - Usage:
 ```python
-def test_extended_gcd_eculidean(lhs, rhs):
+def test_extended_gcd_euclidean(lhs, rhs):
     extend_euclidean_algo = ExtendedGcdEuclidean(lhs, rhs)
     for i in range(0, len(extend_euclidean_algo.iter_list) - 1):
-        print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + str(
-                extend_euclidean_algo.r_list[i]) + '\t\tq:' + str(extend_euclidean_algo.q_list[i]) + '\t\tx:' + str(
-                extend_euclidean_algo.x_list[i]) + '\t\ty:' + str(extend_euclidean_algo.y_list[i])
+        print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + \
+              str(extend_euclidean_algo.r_list[i]) + '\t\tq:' + \
+              str(extend_euclidean_algo.q_list[i]) + '\t\tx:' + \
+              str(extend_euclidean_algo.x_list[i]) + '\t\ty:' + \
+              str(extend_euclidean_algo.y_list[i])
 
     i = len(extend_euclidean_algo.iter_list) - 1
-    print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + str(
-            extend_euclidean_algo.r_list[i]) + '\t\tq:' + str(extend_euclidean_algo.q_list[i])
+    print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + \
+          str(extend_euclidean_algo.r_list[i]) + '\t\tq:' + \
+          str(extend_euclidean_algo.q_list[i])
 
 
-test_extended_gcd_eculidean(1759, 550)
+test_extended_gcd_euclidean(1759, 550)
 print '\n'
-test_extended_gcd_eculidean(1137, 29)
+test_extended_gcd_euclidean(1137, 29)
 ```
 
 - Result:
@@ -73,14 +76,14 @@ iter:2	|	r:5	|	q:4	  |	x:-4	|	y:157
 iter:3	|	r:1	|	q:1	 | x:5	|	y:-196
 iter:4	|	r:0	|	q:5 |  None | None
 
-- Answer:
+- Answer of Q1:
 the multiplicative inverse of (29 modulo 1137) is -196, since (29 * (-196)) % 1137 = 1
 
-##Q2 Tranposition Cipher & Substitution Cipher
+##Q2 Transposition Cipher & Substitution Cipher
 Substitution Cipher, includes a one-to-one mapping-function from the english letters domain to english letters domain. So
 it is possible to do some statistical analysis, based on the common frequency distribution of english letters, and in Q2
 , we know that 20000 letters are quite enough to conduct such analysis. If we apply this frequency pattern analysis on
-the ciphertext, i.e, find a one-to-one mapping-function according to the frequency statistical data, the text which is
+the cipher-text, i.e, find a one-to-one mapping-function according to the frequency statistical data, the text which is
 encrypted through subsitution cipher should be readable after being decrypted by the mapping function.
 
 Whereas the above frequency analysis methodology does not fit for the crack of transposition cipher, since according to the definition of
@@ -134,7 +137,7 @@ individual.
 ##Q4 Substitution Cipher
 - Implementation
 ```python
-class EngIndexBimap:
+class EngIndexBiMap:
     def __init__(self):
         self.char2index_dict = dict()
         self.index2char_dict = dict()
@@ -150,27 +153,30 @@ class EngIndexBimap:
 
 
 # val from 0 to 25
-def encrpt(letter_index, k0, k1):
+def encrypt(letter_index, k0, k1):
     return (letter_index * k0 + k1) % 26
 
 
 def cipher(msg, k0, k1):
-    my_bimpa = EngIndexBimap()
+    my_bimap = EngIndexBiMap()
     cipher_text = list()
     for ele in msg:
-        cipher_text.append(my_bimpa.index2char(encrpt(my_bimpa.char2index(ele), k0, k1)))
+        cipher_text.append(my_bimap.index2char(encrypt(my_bimap.char2index(ele), k0, k1)))
     return cipher_text
 ```
 
 - Usage
 ```python
-print cipher('lecture',3,1)
+print cipher('lecture', 3, 1)
 ```
 
-- Result:`inhgjan`
+- Result
 ```zsh
 ['i', 'n', 'h', 'g', 'j', 'a', 'n']
 ```
+
+- Answer of Q2: `inhgjan`
+
 
 ##Q5 Answer
 - Implementation of Finite Field
@@ -193,7 +199,7 @@ class FiniteFieldNumber:
             tmp_whole_len = len(bin(tmp_finite_field_num.integer_32bits))
             other_whole_len = len(bin(other.integer_32bits))
             tmp_finite_field_num = tmp_finite_field_num - FiniteFieldNumber(
-                other.integer_32bits << (tmp_whole_len - other_whole_len), False)
+                    other.integer_32bits << (tmp_whole_len - other_whole_len), False)
             ret_integer_num ^= 1 << (tmp_whole_len - other_whole_len)
         return FiniteFieldNumber(ret_integer_num, False)
 
@@ -206,7 +212,7 @@ class FiniteFieldNumber:
             tmp_whole_len = len(bin(tmp_finite_field_num.integer_32bits))
             other_whole_len = len(bin(other.integer_32bits))
             tmp_finite_field_num = tmp_finite_field_num - FiniteFieldNumber(
-                other.integer_32bits << (tmp_whole_len - other_whole_len), False)
+                    other.integer_32bits << (tmp_whole_len - other_whole_len), False)
         return tmp_finite_field_num
 
     # multiplication on GF(2^8)
@@ -218,7 +224,8 @@ class FiniteFieldNumber:
             order_num = whole_len - 1 - index
             if (bin_str[index]) == '1':
                 new_int32 ^= other.integer_32bits << order_num
-        return FiniteFieldNumber(new_int32, False) % FiniteFieldNumber(FiniteFieldNumber.magical_number, False)
+        return FiniteFieldNumber(new_int32, False) % \
+               FiniteFieldNumber(FiniteFieldNumber.magical_number, False)
 
     def __add__(self, other):
         return FiniteFieldNumber(self.integer_32bits ^ other.integer_32bits, False)
@@ -258,9 +265,16 @@ if __name__ == '__main__':
 
     number4 = FiniteFieldNumber('10000111111010')
     print number4 / magical_number
-
 ```
-- first three questions
+
+- Result for first three questions
+```zsh
+Q5-(1):x^6 + x^2 + x^1
+Q5-(2):x^7 + x^6 + x^3 + x^2 + x^0
+Q5-(3):x^7 + x^5 + x^3 + x^2
+```
+
+- Answer for first three questions of Q5
 ```zsh
 Q5-(1):x^6 + x^2 + x^1
 Q5-(2):x^7 + x^6 + x^3 + x^2 + x^0
@@ -273,8 +287,8 @@ class ExtendedGcdEuclidean:
     def __init__(self, lhs, rhs):
         self.r_list = list([lhs, rhs])
         self.q_list = list([None, None])
-        self.x_list = list([FiniteFieldNumber(1,False), FiniteFieldNumber(0,False)])
-        self.y_list = list([FiniteFieldNumber(0,False), FiniteFieldNumber(1,False)])
+        self.x_list = list([FiniteFieldNumber(1, False), FiniteFieldNumber(0, False)])
+        self.y_list = list([FiniteFieldNumber(0, False), FiniteFieldNumber(1, False)])
         self.iter_list = list([-1, 0])
         self.is_break = False;
         self.compute_final_result()
@@ -287,10 +301,10 @@ class ExtendedGcdEuclidean:
         if self.r_list[next_tail_index].integer_32bits == 0:
             self.is_break = True
             return
-        self.x_list.append(
-            self.x_list[next_tail_index - 2] - self.q_list[next_tail_index] * self.x_list[next_tail_index - 1])
-        self.y_list.append(
-            self.y_list[next_tail_index - 2] - self.q_list[next_tail_index] * self.y_list[next_tail_index - 1])
+        self.x_list.append(self.x_list[next_tail_index - 2] -
+                           self.q_list[next_tail_index] * self.x_list[next_tail_index - 1])
+        self.y_list.append(self.y_list[next_tail_index - 2] -
+                           self.q_list[next_tail_index] * self.y_list[next_tail_index - 1])
 
     def compute_final_result(self):
         while not self.is_break:
@@ -300,25 +314,16 @@ class ExtendedGcdEuclidean:
 def test_extended_gcd_eculidean(lhs, rhs):
     extend_euclidean_algo = ExtendedGcdEuclidean(lhs, rhs)
     for i in range(0, len(extend_euclidean_algo.iter_list) - 1):
-        print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + str(
-            extend_euclidean_algo.r_list[i]) + '\t\tq:' + str(extend_euclidean_algo.q_list[i]) + '\t\tx:' + str(
-            extend_euclidean_algo.x_list[i]) + '\t\ty:' + str(extend_euclidean_algo.y_list[i])
+        print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + \
+              str(extend_euclidean_algo.r_list[i]) + '\t\tq:' + \
+              str(extend_euclidean_algo.q_list[i]) + '\t\tx:' + \
+              str(extend_euclidean_algo.x_list[i]) + \
+              '\t\ty:' + str(extend_euclidean_algo.y_list[i])
 
     i = len(extend_euclidean_algo.iter_list) - 1
-    print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + str(
-        extend_euclidean_algo.r_list[i]) + '\t\tq:' + str(extend_euclidean_algo.q_list[i])
-
-
-if __name__ == '__main__':
-    px_number = FiniteFieldNumber(FiniteFieldNumber.magical_number, False)
-
-    ax_number0=FiniteFieldNumber('10000011')
-    test_extended_gcd_eculidean(px_number,ax_number0)
-
-    print '\n'
-
-    ax_number1 = FiniteFieldNumber('1000110')
-    test_extended_gcd_eculidean(px_number, ax_number1)
+    print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' \
+          + str(extend_euclidean_algo.r_list[i]) + '\t\tq:' \
+          + str(extend_euclidean_algo.q_list[i])
 ```
 
 - Result of Q5(4)
@@ -333,4 +338,4 @@ iter:3	|	r:x^0	|	q:x^0	|	x:x^5 + x^4 + x^3 + x^2 + x^0	|	y:x^7 + x^6 + x^5 + x^4
 iter:4	|	r:0	|	q:x^1 | None| None|
 
 - Answer of Q5(4)
-the multiplicative inverse c(x) of a(x) is `x^7 + x^6 + x^5 + x^4 + x^2 + x^0`
+So, the multiplicative inverse c(x) of a(x) is `x^7 + x^6 + x^5 + x^4 + x^2 + x^0`
