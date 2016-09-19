@@ -1,4 +1,4 @@
-#Crypto Homework Notes
+#Crypto Assignment 1, Name: CHE Yulin, Student#: 20292673
 ##Q1 Euclidean Algorithm For greatest common divider(gcd)
 ```python
 def gcd_euclidean(lhs, rhs):
