@@ -13,26 +13,30 @@ def gcd_euclidean(lhs, rhs):
 ```python
 class ExtendedGcdEuclidean:
     def __init__(self, lhs, rhs):
-        self.r_list = list([lhs,rhs])
-        self.q_list = list([None,None])
-        self.x_list = list([1,0])
-        self.y_list = list([0,1])
-        self.iter_list = list([-1,0])
+        self.r_list = list([lhs, rhs])
+        self.q_list = list([None, None])
+        self.x_list = list([1, 0])
+        self.y_list = list([0, 1])
+        self.iter_list = list([-1, 0])
         self.is_break = False;
         self.compute_final_result()
 
     def do_one_iteration(self):
         next_tail_index = len(self.iter_list)
         self.iter_list.append(self.iter_list[next_tail_index - 1] + 1)
-        self.q_list.append(self.r_list[next_tail_index - 2] / self.r_list[next_tail_index - 1])
-        self.r_list.append(self.r_list[next_tail_index - 2] % self.r_list[next_tail_index - 1])
+        self.q_list.append(self.r_list[next_tail_index - 2] /
+                           self.r_list[next_tail_index - 1])
+        self.r_list.append(self.r_list[next_tail_index - 2] %
+                           self.r_list[next_tail_index - 1])
         if self.r_list[next_tail_index] == 0:
             self.is_break = True
             return
         self.x_list.append(
-                self.x_list[next_tail_index - 2] - self.q_list[next_tail_index] * self.x_list[next_tail_index - 1])
+                self.x_list[next_tail_index - 2] -
+                self.q_list[next_tail_index] * self.x_list[next_tail_index - 1])
         self.y_list.append(
-                self.y_list[next_tail_index - 2] - self.q_list[next_tail_index] * self.y_list[next_tail_index - 1])
+                self.y_list[next_tail_index - 2] -
+                self.q_list[next_tail_index] * self.y_list[next_tail_index - 1])
 
     def compute_final_result(self):
         while not self.is_break:
@@ -87,14 +91,18 @@ So, in conclusion, if after we apply the above methodology on the 20000-length t
 
 ##Q3 Answer
 - method
-    - [model to measure the messy criteria](http://quipqiup.com/index.php)
-    - [the frequency tool](http://cryptoclub.org/tools/crack_substitutioncipher.php)
+    - model to measure the messy criteria, link: http://quipqiup.com/index.php
+    - the frequency analysis tool, link: http://cryptoclub.org/tools/crack_substitutioncipher.php
 
 - one-to-one mapping function, i.e, symmetric key:
 
-a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
---- | --- | --- | --- | --- | --- | --- | --- | --- | --- |--- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
-Y | L | X | U | W | Z | C | A | D | E | F | B | G | I | V | H | O | K | R | Q | P | T | N | J | M | S
+a | b | c | d | e | f | g | h | i | j | k | l | m |
+--- | --- | --- | --- | --- | --- | --- | --- | --- | --- |--- | --- | --- |
+Y | L | X | U | W | Z | C | A | D | E | F | B | G |
+
+n | o | p | q | r | s | t | u | v | w | x | y | z
+--- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
+I | V | H | O | K | R | Q | P | T | N | J | M | S
 
 - original text:
 
