@@ -1,0 +1,19 @@
+# Simple Data Structure Usage: list
+if __name__ == '__main__':
+    my_list = list([None])
+    my_list.append(1)
+    my_list.append(1)
+    for iter in range(1, 8):
+        my_list.append(my_list[len(my_list) - 1] + my_list[len(my_list) - 2])
+
+    for element in my_list:
+        print element
+
+    print '.....'
+
+    for i in range(0,len(my_list)):
+        print my_list[i]
+
+    print 'Totoal len:' + str(len(my_list))
+
+    print int('a')
