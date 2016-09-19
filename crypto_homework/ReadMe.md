@@ -81,19 +81,12 @@ iter:4	|	r:0	|	q:5 |  None | None
 the multiplicative inverse of (29 modulo 1137) is -196, since (29 * (-196)) % 1137 = 1
 
 ##Q2 Transposition Cipher & Substitution Cipher
-Substitution Cipher, includes a one-to-one mapping-function from the english letters domain to english letters domain. So it is possible to do some statistical analysis, based on the common frequency distribution of english letters.
-And in Q2, we know that 20000 letters are quite enough to conduct such analysis. If we apply this frequency pattern analysis on the cipher-text,
-i.e, find a one-to-one mapping-function according to the frequency statistical data, the text which is encrypted through subsitution cipher, should be readable after being decrypted by the mapping function.
-
-Whereas the above frequency analysis methodology does not fit for the crack of transposition cipher, since according to the definition of transposition cipher, it just simply transpose the whole plaintext without any substitution.
-
-So, in conclusion, if after we apply the above methodology on the 20000-length text, the text becomes much more readable, then it is substitution cipher, else it is transposition cipher.
+Substitution Cipher, includes a one-to-one mapping-function from the english letters domain to english letters domain. So it is possible to do some statistical analysis, based on the common frequency distribution of english letters. And in Q2, we know that 20000 letters are quite enough to conduct such analysis. If we apply this frequency pattern analysis on the cipher-text, i.e, find a one-to-one mapping-function according to the frequency statistical data, the text which is encrypted through subsitution cipher, should be readable after being decrypted by the mapping function. Whereas the above frequency analysis methodology does not fit for the crack of transposition cipher, since according to the definition of transposition cipher, it just simply transpose the whole plaintext without any substitution. So, in conclusion, if after we apply the above methodology on the 20000-length text, the text becomes much more readable, then it is substitution cipher, else it is transposition cipher.
 
 ##Q3 Answer
 - method
     - model to measure the messy criteria, link: http://quipqiup.com/index.php
     - the frequency analysis tool, link: http://cryptoclub.org/tools/crack_substitutioncipher.php
-
 - one-to-one mapping function, i.e, symmetric key:
 
 a | b | c | d | e | f | g | h | i | j | k | l | m |
@@ -173,7 +166,7 @@ print cipher('lecture', 3, 1)
 ['i', 'n', 'h', 'g', 'j', 'a', 'n']
 ```
 
-- Answer of Q2: `inhgjan`
+- Answer of Q4: `inhgjan`
 
 
 ##Q5 Answer
