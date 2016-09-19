@@ -86,6 +86,10 @@ So, in conclusion, if after we apply the above methodology on the 20000-length t
  then it is substitution cipher, else it is transposition cipher.
 
 ##Q3 Answer
+- method
+    - [model to measure the messy criteria](http://quipqiup.com/index.php)
+    - [the frequency tool](http://cryptoclub.org/tools/crack_substitutioncipher.php)
+
 - one-to-one mapping function, i.e, symmetric key:
 
 a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
