@@ -71,13 +71,13 @@ if __name__ == '__main__':
 
     number2 = FiniteFieldNumber('0')
     number3 = FiniteFieldNumber('1000110')
-    print number2 - number3
+    print 'Q5-(1):' + str(number2 - number3)
 
     number0 = FiniteFieldNumber('1000110')
     number1 = FiniteFieldNumber('10001011')
-    print number0 + number1
+    print 'Q5-(2):' + str(number0 + number1)
 
-    print number0 * number1
+    print 'Q5-(3):' + str(number0 * number1)
 
     number4 = FiniteFieldNumber('10000111111010')
     print number4 / magical_number
