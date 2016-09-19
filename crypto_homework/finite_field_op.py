@@ -81,3 +81,5 @@ if __name__ == '__main__':
 
     number4 = FiniteFieldNumber('10000111111010')
     print number4 / magical_number
+
+    print FiniteFieldNumber('11110101') * FiniteFieldNumber('1000110')

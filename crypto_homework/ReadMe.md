@@ -161,12 +161,6 @@ print cipher('lecture',3,1)
 ```
 
 ##Q5 Answer
-- first three questions
-```zsh
-Q5-(1):x^6 + x^2 + x^1
-Q5-(2):x^7 + x^6 + x^3 + x^2 + x^0
-Q5-(3):x^7 + x^5 + x^3 + x^2
-```
 - Implementation of Finite Field
 ```python
 # Finite Field 2^8 where p(x) = x^8 + x^4 + x^3 + x + 1
@@ -254,3 +248,77 @@ if __name__ == '__main__':
     print number4 / magical_number
 
 ```
+- first three questions
+```zsh
+Q5-(1):x^6 + x^2 + x^1
+Q5-(2):x^7 + x^6 + x^3 + x^2 + x^0
+Q5-(3):x^7 + x^5 + x^3 + x^2
+```
+
+- Implementation of Q5(4)
+```python
+class ExtendedGcdEuclidean:
+    def __init__(self, lhs, rhs):
+        self.r_list = list([lhs, rhs])
+        self.q_list = list([None, None])
+        self.x_list = list([FiniteFieldNumber(1,False), FiniteFieldNumber(0,False)])
+        self.y_list = list([FiniteFieldNumber(0,False), FiniteFieldNumber(1,False)])
+        self.iter_list = list([-1, 0])
+        self.is_break = False;
+        self.compute_final_result()
+
+    def do_one_iteration(self):
+        next_tail_index = len(self.iter_list)
+        self.iter_list.append(self.iter_list[next_tail_index - 1] + 1)
+        self.q_list.append(self.r_list[next_tail_index - 2] / self.r_list[next_tail_index - 1])
+        self.r_list.append(self.r_list[next_tail_index - 2] % self.r_list[next_tail_index - 1])
+        if self.r_list[next_tail_index].integer_32bits == 0:
+            self.is_break = True
+            return
+        self.x_list.append(
+            self.x_list[next_tail_index - 2] - self.q_list[next_tail_index] * self.x_list[next_tail_index - 1])
+        self.y_list.append(
+            self.y_list[next_tail_index - 2] - self.q_list[next_tail_index] * self.y_list[next_tail_index - 1])
+
+    def compute_final_result(self):
+        while not self.is_break:
+            self.do_one_iteration()
+
+
+def test_extended_gcd_eculidean(lhs, rhs):
+    extend_euclidean_algo = ExtendedGcdEuclidean(lhs, rhs)
+    for i in range(0, len(extend_euclidean_algo.iter_list) - 1):
+        print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + str(
+            extend_euclidean_algo.r_list[i]) + '\t\tq:' + str(extend_euclidean_algo.q_list[i]) + '\t\tx:' + str(
+            extend_euclidean_algo.x_list[i]) + '\t\ty:' + str(extend_euclidean_algo.y_list[i])
+
+    i = len(extend_euclidean_algo.iter_list) - 1
+    print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + str(
+        extend_euclidean_algo.r_list[i]) + '\t\tq:' + str(extend_euclidean_algo.q_list[i])
+
+
+if __name__ == '__main__':
+    px_number = FiniteFieldNumber(FiniteFieldNumber.magical_number, False)
+
+    ax_number0=FiniteFieldNumber('10000011')
+    test_extended_gcd_eculidean(px_number,ax_number0)
+
+    print '\n'
+
+    ax_number1 = FiniteFieldNumber('1000110')
+    test_extended_gcd_eculidean(px_number, ax_number1)
+```
+
+- Result of Q5(4)
+
+i | r | q | x | y
+--- | --- | --- | --- | --- |
+iter:-1 |		r:x^8 + x^4 + x^3 + x^1 + x^0	|	q:None	|	x:x^0	|	y:0
+iter:0	|	r:x^6 + x^2 + x^1	|	q:None	|	x:0	|	y:x^0
+iter:1	|	r:x^1 + x^0	|	q:x^2	|	x:x^0	|	y:x^2
+iter:2	|	r:x^1	|	q:x^5 + x^4 + x^3 + x^2	|	x:x^5 + x^4 + x^3 + x^2	|	y:x^7 + x^6 + x^5 + x^4 + x^0
+iter:3	|	r:x^0	|	q:x^0	|	x:x^5 + x^4 + x^3 + x^2 + x^0	|	y:x^7 + x^6 + x^5 + x^4 + x^2 + x^0
+iter:4	|	r:0	|	q:x^1 | None| None|
+
+- Answer of Q5(4)
+the multiplicative inverse c(x) of a(x) is `x^7 + x^6 + x^5 + x^4 + x^2 + x^0`
