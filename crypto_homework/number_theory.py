@@ -76,7 +76,8 @@ def cipher(msg, k0, k1):
     my_bimap = EngIndexBiMap()
     cipher_text = list()
     for ele in msg:
-        cipher_text.append(my_bimap.index2char(encrypt(my_bimap.char2index(ele), k0, k1)))
+        cipher_text.append(my_bimap.index2char(
+            encrypt(my_bimap.char2index(ele), k0, k1)))
     return cipher_text
 
 

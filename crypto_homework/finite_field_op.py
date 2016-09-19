@@ -16,7 +16,8 @@ class FiniteFieldNumber:
             tmp_whole_len = len(bin(tmp_finite_field_num.integer_32bits))
             other_whole_len = len(bin(other.integer_32bits))
             tmp_finite_field_num = tmp_finite_field_num - FiniteFieldNumber(
-                    other.integer_32bits << (tmp_whole_len - other_whole_len), False)
+                other.integer_32bits << (tmp_whole_len -
+                                         other_whole_len), False)
             ret_integer_num ^= 1 << (tmp_whole_len - other_whole_len)
         return FiniteFieldNumber(ret_integer_num, False)
 
@@ -29,7 +30,8 @@ class FiniteFieldNumber:
             tmp_whole_len = len(bin(tmp_finite_field_num.integer_32bits))
             other_whole_len = len(bin(other.integer_32bits))
             tmp_finite_field_num = tmp_finite_field_num - FiniteFieldNumber(
-                    other.integer_32bits << (tmp_whole_len - other_whole_len), False)
+                other.integer_32bits << (tmp_whole_len -
+                                         other_whole_len), False)
         return tmp_finite_field_num
 
     # multiplication on GF(2^8)
@@ -45,10 +47,12 @@ class FiniteFieldNumber:
                FiniteFieldNumber(FiniteFieldNumber.magical_number, False)
 
     def __add__(self, other):
-        return FiniteFieldNumber(self.integer_32bits ^ other.integer_32bits, False)
+        return FiniteFieldNumber(self.integer_32bits ^
+                                 other.integer_32bits, False)
 
     def __sub__(self, other):
-        return FiniteFieldNumber(self.integer_32bits ^ other.integer_32bits, False)
+        return FiniteFieldNumber(self.integer_32bits ^
+                                 other.integer_32bits, False)
 
     def __str__(self):
         bin_str = bin(self.integer_32bits)

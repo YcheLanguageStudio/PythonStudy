@@ -1,4 +1,5 @@
-#Crypto Assignment 1, Name: CHE Yulin, Student#: 20292673
+#Crypto Assignment 1
+##Name: CHE Yulin, Student#: 20292673
 ##Q1 Euclidean Algorithm For greatest common divider(gcd)
 ```python
 def gcd_euclidean(lhs, rhs):
@@ -80,17 +81,13 @@ iter:4	|	r:0	|	q:5 |  None | None
 the multiplicative inverse of (29 modulo 1137) is -196, since (29 * (-196)) % 1137 = 1
 
 ##Q2 Transposition Cipher & Substitution Cipher
-Substitution Cipher, includes a one-to-one mapping-function from the english letters domain to english letters domain. So
-it is possible to do some statistical analysis, based on the common frequency distribution of english letters, and in Q2
-, we know that 20000 letters are quite enough to conduct such analysis. If we apply this frequency pattern analysis on
-the cipher-text, i.e, find a one-to-one mapping-function according to the frequency statistical data, the text which is
-encrypted through subsitution cipher should be readable after being decrypted by the mapping function.
+Substitution Cipher, includes a one-to-one mapping-function from the english letters domain to english letters domain. So it is possible to do some statistical analysis, based on the common frequency distribution of english letters.
+And in Q2, we know that 20000 letters are quite enough to conduct such analysis. If we apply this frequency pattern analysis on the cipher-text,
+i.e, find a one-to-one mapping-function according to the frequency statistical data, the text which is encrypted through subsitution cipher, should be readable after being decrypted by the mapping function.
 
-Whereas the above frequency analysis methodology does not fit for the crack of transposition cipher, since according to the definition of
-transposition cipher, it just simply transpose the whole plaintext without any substitution.
+Whereas the above frequency analysis methodology does not fit for the crack of transposition cipher, since according to the definition of transposition cipher, it just simply transpose the whole plaintext without any substitution.
 
-So, in conclusion, if after we apply the above methodology on the 20000-length text, the text becomes much more readable,
- then it is substitution cipher, else it is transposition cipher.
+So, in conclusion, if after we apply the above methodology on the 20000-length text, the text becomes much more readable, then it is substitution cipher, else it is transposition cipher.
 
 ##Q3 Answer
 - method
@@ -161,7 +158,8 @@ def cipher(msg, k0, k1):
     my_bimap = EngIndexBiMap()
     cipher_text = list()
     for ele in msg:
-        cipher_text.append(my_bimap.index2char(encrypt(my_bimap.char2index(ele), k0, k1)))
+        cipher_text.append(my_bimap.index2char(
+            encrypt(my_bimap.char2index(ele), k0, k1)))
     return cipher_text
 ```
 
@@ -199,7 +197,8 @@ class FiniteFieldNumber:
             tmp_whole_len = len(bin(tmp_finite_field_num.integer_32bits))
             other_whole_len = len(bin(other.integer_32bits))
             tmp_finite_field_num = tmp_finite_field_num - FiniteFieldNumber(
-                    other.integer_32bits << (tmp_whole_len - other_whole_len), False)
+                other.integer_32bits << (tmp_whole_len -
+                                         other_whole_len), False)
             ret_integer_num ^= 1 << (tmp_whole_len - other_whole_len)
         return FiniteFieldNumber(ret_integer_num, False)
 
@@ -212,7 +211,8 @@ class FiniteFieldNumber:
             tmp_whole_len = len(bin(tmp_finite_field_num.integer_32bits))
             other_whole_len = len(bin(other.integer_32bits))
             tmp_finite_field_num = tmp_finite_field_num - FiniteFieldNumber(
-                    other.integer_32bits << (tmp_whole_len - other_whole_len), False)
+                other.integer_32bits << (tmp_whole_len -
+                                         other_whole_len), False)
         return tmp_finite_field_num
 
     # multiplication on GF(2^8)
@@ -228,10 +228,12 @@ class FiniteFieldNumber:
                FiniteFieldNumber(FiniteFieldNumber.magical_number, False)
 
     def __add__(self, other):
-        return FiniteFieldNumber(self.integer_32bits ^ other.integer_32bits, False)
+        return FiniteFieldNumber(self.integer_32bits ^
+                                 other.integer_32bits, False)
 
     def __sub__(self, other):
-        return FiniteFieldNumber(self.integer_32bits ^ other.integer_32bits, False)
+        return FiniteFieldNumber(self.integer_32bits ^
+                                 other.integer_32bits, False)
 
     def __str__(self):
         bin_str = bin(self.integer_32bits)
@@ -287,8 +289,10 @@ class ExtendedGcdEuclidean:
     def __init__(self, lhs, rhs):
         self.r_list = list([lhs, rhs])
         self.q_list = list([None, None])
-        self.x_list = list([FiniteFieldNumber(1, False), FiniteFieldNumber(0, False)])
-        self.y_list = list([FiniteFieldNumber(0, False), FiniteFieldNumber(1, False)])
+        self.x_list = list([FiniteFieldNumber(1, False),
+                            FiniteFieldNumber(0, False)])
+        self.y_list = list([FiniteFieldNumber(0, False),
+                            FiniteFieldNumber(1, False)])
         self.iter_list = list([-1, 0])
         self.is_break = False;
         self.compute_final_result()
@@ -296,15 +300,19 @@ class ExtendedGcdEuclidean:
     def do_one_iteration(self):
         next_tail_index = len(self.iter_list)
         self.iter_list.append(self.iter_list[next_tail_index - 1] + 1)
-        self.q_list.append(self.r_list[next_tail_index - 2] / self.r_list[next_tail_index - 1])
-        self.r_list.append(self.r_list[next_tail_index - 2] % self.r_list[next_tail_index - 1])
+        self.q_list.append(self.r_list[next_tail_index - 2] /
+                           self.r_list[next_tail_index - 1])
+        self.r_list.append(self.r_list[next_tail_index - 2] %
+                           self.r_list[next_tail_index - 1])
         if self.r_list[next_tail_index].integer_32bits == 0:
             self.is_break = True
             return
         self.x_list.append(self.x_list[next_tail_index - 2] -
-                           self.q_list[next_tail_index] * self.x_list[next_tail_index - 1])
+                           self.q_list[next_tail_index] *
+                           self.x_list[next_tail_index - 1])
         self.y_list.append(self.y_list[next_tail_index - 2] -
-                           self.q_list[next_tail_index] * self.y_list[next_tail_index - 1])
+                           self.q_list[next_tail_index] *
+                           self.y_list[next_tail_index - 1])
 
     def compute_final_result(self):
         while not self.is_break:
@@ -324,6 +332,18 @@ def test_extended_gcd_eculidean(lhs, rhs):
     print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' \
           + str(extend_euclidean_algo.r_list[i]) + '\t\tq:' \
           + str(extend_euclidean_algo.q_list[i])
+
+
+if __name__ == '__main__':
+    px_number = FiniteFieldNumber(FiniteFieldNumber.magical_number, False)
+
+    ax_number0 = FiniteFieldNumber('10000011')
+    test_extended_gcd_eculidean(px_number, ax_number0)
+
+    print '\n'
+
+    ax_number1 = FiniteFieldNumber('1000110')
+    test_extended_gcd_eculidean(px_number, ax_number1)
 ```
 
 - Result of Q5(4)
