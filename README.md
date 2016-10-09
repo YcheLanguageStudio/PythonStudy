@@ -4,15 +4,19 @@ This is a repository to record my Python 2.7 study.
 
 ##Python2.7 Study Category
 - Basic Data Structures
-    - [List](basic_data_structure/list_study.py)
+    - [List](study/basic_data_structure/list_study.py)
 - Fucntional Related
-    - [Basic Usage](functional/function_test.py)
-    - [Functional Features](functional/functional_test.py)
-- [Regex](string_regex/regex_test.py)
-- [OS/Sys](./os)
-- [Crawler](./crawler)
+    - [Basic Usage](study/functional/function_test.py)
+    - [Functional Features](study/functional/functional_test.py)
+- [Regex](study/string_regex/regex_test.py)
+- [OS/Sys](study/os)
+- [Crawler](study/crawler)
 - Visualization
-    - [Bar Chart](./plot)
+    - [Bar Chart](study/plot)
+
+##QlCoder
+
+##Crypto Study
 
 ##Crawler Related Repositories
 - [pyspider by binux](https://github.com/binux/pyspider)        
