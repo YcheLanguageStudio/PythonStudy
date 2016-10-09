@@ -8,3 +8,5 @@ for i in range(0,len(d),5):
         a[t]+=256
     else:
         a[t]=256
+
+print str(a[242])+","+str(a[29])+","+str(a[133])+","+str(a[75])
