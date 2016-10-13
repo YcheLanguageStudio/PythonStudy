@@ -1,8 +1,12 @@
 import task_pb2
 import sys
 
-task = Task_pb2.Task()
+task = task_pb2.Task()
 f = open("task.data", "rb")
 task.ParseFromString(f.read())
 print task
+
+# for ele in task.answer.values:
+#     print ele
+
 f.close()
