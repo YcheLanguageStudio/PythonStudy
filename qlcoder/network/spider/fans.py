@@ -2,11 +2,11 @@ import hashlib
 import urllib.request
 
 i = 0
-k = 175
+k = 485
 while True:
     i += 1
     b = hashlib.md5()
-    a = "20161014cheyulin" + str(k) + str(i)
+    a = "20161015cheyulin" + str(k) + str(i)
     b.update(a.encode())
     if (b.hexdigest()[0:6] == "000000"):
         print(i, a, b.hexdigest())
