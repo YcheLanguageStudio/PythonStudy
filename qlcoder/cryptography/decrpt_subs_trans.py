@@ -2,17 +2,35 @@ cipher_txt = 'Gnykuto gc kl gxhaugyunkyzv, z srxtvg ggvozuvzcyooe ng, sv  ytk y 
 
 lower_case_cipher_txt = cipher_txt.lower()
 
+
 # print lower_case_cipher_txt
 
-new_str = str()
-
-for my_ch in lower_case_cipher_txt:
-    num = ord(my_ch) - 6
-    if num >= 97 and num < 97 + 26:
+def return_new_str(i):
+    new_str = str()
+    for my_ch in lower_case_cipher_txt:
+        num = ord(my_ch) - i
         if num < 97:
             num += 26
-        my_ch = chr(num)
-    new_str += my_ch
+        if 97 + 26 > num >= 97:
+            my_ch = chr(num)
+        new_str += my_ch
+    return new_str
 
+
+def transform(cipher, i):
+    msg = str()
+    group_num = (len(cipher) + (i - 1)) / i
+    for j in range(0, group_num):
+        index = j
+        while index < len(cipher):
+            msg += cipher[index]
+            index += group_num
+    return msg
+
+
+# for another_j in range(0, 26):
+new_str = return_new_str(6)
 print new_str
-print len(new_str)
+for another_i in range(2, 1276):
+    res = transform(new_str, another_i)
+    print res
