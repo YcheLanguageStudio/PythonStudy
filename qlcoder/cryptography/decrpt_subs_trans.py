@@ -15,4 +15,4 @@ for my_ch in lower_case_cipher_txt:
     new_str += my_ch
 
 print new_str
-
+print len(new_str)
