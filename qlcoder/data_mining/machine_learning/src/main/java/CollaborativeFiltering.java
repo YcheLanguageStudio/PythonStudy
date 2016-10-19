@@ -2,6 +2,8 @@ import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
+import org.apache.mahout.cf.taste.impl.recommender.svd.ExpectationMaximizationSVDFactorizer;
+import org.apache.mahout.cf.taste.impl.recommender.svd.SVDRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
@@ -29,7 +31,10 @@ public class CollaborativeFiltering {
 
         Recommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
 
-        //给用户1推荐4个物品
+
+        SVDRecommender svdrecommender=new SVDRecommender(model,new ExpectationMaximizationSVDFactorizer(model,4,1000));
+
+        //给用户436821推荐1个物品
         List<RecommendedItem> recommendations = recommender.recommend(436821, 1);
 
         for (RecommendedItem recommendation : recommendations) {
