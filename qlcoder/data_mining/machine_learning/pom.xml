@@ -10,11 +10,14 @@
 
 
     <!-- https://mvnrepository.com/artifact/org.apache.mahout/mahout-core -->
-    <dependency>
-        <groupId>org.apache.mahout</groupId>
-        <artifactId>mahout-core</artifactId>
-        <version>0.7</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.mahout</groupId>
+            <artifactId>mahout-core</artifactId>
+            <version>0.7</version>
+        </dependency>
+
+    </dependencies>
 
 
 </project>
