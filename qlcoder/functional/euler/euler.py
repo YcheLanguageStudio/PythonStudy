@@ -1,11 +1,10 @@
-def gcd(a,b):
-    ''' Greatest common divisor (a,b) '''
+def gcd(a, b):
     while b != 0:
         (a, b) = (b, a % b)
     return a
 
-def factorize(n, wheel = 3):
-    ''' Wheel factorization (using dynamic wheel) '''
+
+def factorize(n, wheel=3):
     if n < 2:
         return []
     primes = (2, 3, 5, 7, 11)
@@ -25,7 +24,7 @@ def factorize(n, wheel = 3):
         q.append((p, e))
     if n > 1:
         # get wheel dimension
-        m = reduce(lambda x, y:x*y, primes, 1)
+        m = reduce(lambda x, y: x * y, primes, 1)
         # make offsets
         offs = [x for x in xrange(2, m + 1) if gcd(m, x) == 1] + [m + 1]
         k, done = 0, False
@@ -51,11 +50,10 @@ def factorize(n, wheel = 3):
             q.append((n, 1))
     return q
 
-def phiwheel(n, wheel = 3):
-    ''' Euler Totient Function of n using a prime wheel criterion.
-        It's almost as fast as the phi(n, p) function '''
+
+def phiwheel(n, wheel=3):
     if n < 0:
-        return phi(-n, wheel)
+        return phiwheel(-n, wheel)
     if n < 2:
         return n
     q = factorize(n, wheel)
@@ -66,13 +64,29 @@ def phiwheel(n, wheel = 3):
     return r
 
 
+class TwoNumbers:
+    def __init__(self, two_fac, divider):
+        self.two_fac = two_fac
+        self.divider = divider
+
+
+def compute_2_fac(num):
+    two_fac = 0
+    while num % 2 != 1:
+        num /= 2
+        two_fac += 1
+    return TwoNumbers(two_fac, num)
+
+
+def compute_recursive(num):
+    two_numbers = compute_2_fac(num)
+    if two_numbers.divider == 1:
+        return 0
+    else:
+        k = two_numbers.two_fac
+        y = two_numbers.divider
+        return pow(2, k) * (pow(2, compute_recursive(phiwheel(y)) + phiwheel(y) - k) % y)
+
+
 if __name__ == '__main__':
-    # print phiwheel(7**8)
-    # print phiwheel(4941258)
-    # print phiwheel(1411788)
-    # print phiwheel(403368)
-    # print phiwheel(115248)
-    # print phiwheel(32928)
-    # print phiwheel(9048)
-    # print phiwheel(2688)
-    print phiwheel(768)
+    print compute_recursive(7 ** 8) - 3
