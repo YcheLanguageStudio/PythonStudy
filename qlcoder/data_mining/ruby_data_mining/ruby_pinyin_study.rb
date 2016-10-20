@@ -1,8 +1,8 @@
 require 'ruby-pinyin'
 
 # return ['jie', 'cao']
-PinYin.of_string('节操')
-
+arr= PinYin.of_string('节操')
+print arr.reduce(:+) 
 # return ['jie2', 'cao1']
 PinYin.of_string('节操', true)
 PinYin.of_string('节操', :ascii)
