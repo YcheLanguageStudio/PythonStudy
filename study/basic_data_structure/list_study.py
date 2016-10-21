@@ -16,4 +16,5 @@ if __name__ == '__main__':
 
     print 'Totoal len:' + str(len(my_list))
 
-    print int('a')
+
+    print my_list[0]
