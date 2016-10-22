@@ -1,11 +1,16 @@
 package Prime;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Created by cheyulin on 10/22/16.
  */
 public class AllPrimes {
 
-    public static int calculateNumber(int Nmax) {
+    public static int calculateNumber(int Nmax) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("../primes.txt"));
         boolean[] isPrime = new boolean[Nmax + 1];
         for (int i = 3; i <= Nmax; i += 2)
             isPrime[i] = true;
@@ -29,13 +34,16 @@ public class AllPrimes {
         int primeNum = 0;
         for (int i = 1; i <= Nmax; i++) {
             if (isPrime[i] == true) {
+                bufferedWriter.write(Integer.toString(i));
+                bufferedWriter.newLine();
                 primeNum++;
             }
         }
+        bufferedWriter.close();
         return primeNum;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         final int Nmax = 10000000;
         double startTime = System.currentTimeMillis();
         int primeNum = AllPrimes.calculateNumber(Nmax);
