@@ -29,16 +29,27 @@ def substitution(i):
     return ''.join(map(lambda my_ch: transform_ch(my_ch, i), cipher_txt))
 
 
-def crack_transposition(cipher, msg_col_num):
-    msg = cipher
-    msg_row_num = (len(cipher) + (msg_col_num - 1)) / msg_col_num
-    idx_step = msg_row_num - 1
-    padding_col_num = msg_row_num * msg_col_num - len(cipher)
+def crack_transposition(cipher, msg_col_dim):
+    msg_ch_arr = ['-' for n in range(len(cipher))]
+    msg_row_dim = (len(cipher) + (msg_col_dim - 1)) / msg_col_dim
+
+    idx_step = msg_row_dim - 1
+    padding_col_num = msg_row_dim * msg_col_dim - len(cipher)
+    start_change_idx = (msg_col_dim - padding_col_num) * msg_row_dim
+
     for idx in range(0, len(cipher)):
         final_index = idx
-        
-        msg[idx] = cipher[idx]
-    return msg
+        if final_index >= start_change_idx:
+            final_index += (final_index - start_change_idx + idx_step) / idx_step
+        print final_index
+        msg_row_idx = final_index % msg_row_dim
+        msg_col_idx = (final_index + msg_row_dim - 1) / msg_row_dim
+        # print msg_row_idx * msg_col_dim + msg_col_idx
+        msg_idx = msg_row_idx * msg_col_dim + msg_col_idx
+        print msg_idx
+        msg_ch_arr[msg_idx] = cipher[idx]
+
+    return ''.join(msg_ch_arr)
 
 
 print substitution(6)

@@ -39,16 +39,20 @@ while len(huffman_nodes) > 1:
     huffman_nodes.remove(huffman_nodes[1])
     huffman_nodes.sort(key=lambda k: k.frequency)
 
+    print len(huffman_nodes)
+
 final_tree = huffman_nodes[0]
 
-
+#middle order traversal
 def dfs(tree):
     if tree.left_node is None and tree.right_node is None:
         print tree
     else:
-        dfs(tree.left_node)
-        dfs(tree.right_node)
         print tree
-
+        print 'left:'
+        dfs(tree.left_node)
+        print 'right:'
+        dfs(tree.right_node)
+        print '--'
 
 dfs(final_tree)
