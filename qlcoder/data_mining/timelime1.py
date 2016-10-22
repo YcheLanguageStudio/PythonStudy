@@ -18,7 +18,7 @@ vertex_list = map(lambda ele: [], vertex_list)
 
 
 def compute_md5(str_list):
-    res_str = reduce(lambda x, y: str(x) + "-" + str(y), str_list)
+    res_str = '-'.join(str_list)
     return hashlib.md5(res_str).hexdigest()
 
 
@@ -26,6 +26,7 @@ def verbose_time_line(vertex_index):
     if len(vertex_list[vertex_index]) == 0:
         global_digest_list.append(hashlib.md5("").hexdigest())
     else:
+        vertex_list[vertex_index].reverse()
         if len(vertex_list[vertex_index]) == 1:
             global_digest_list.append(hashlib.md5(vertex_list[vertex_index][0]).hexdigest())
         else:
@@ -49,13 +50,12 @@ for i in range(limit):
         notify_message(r, message_str)
     else:
         verbose_time_line(r)
-        # if i % 50 == 0:
-        #     print i
 
 print 'Over'
+
+print compute_md5(global_digest_list)
 
 with open('time_line_res.txt', 'w') as ofs:
     for my_str in global_digest_list:
         ofs.write('-')
         ofs.write(my_str)
-# print compute_md5(global_digest_list)
