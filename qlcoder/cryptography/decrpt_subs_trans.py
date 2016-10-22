@@ -25,31 +25,25 @@ def transform_ch(ch, shift_num):
         return chr(num)
 
 
-def return_new_str(i):
-    return reduce(lambda x, y: x + y, map(lambda my_ch: transform_ch(my_ch, i), cipher_txt))
+def substitution(i):
+    return ''.join(map(lambda my_ch: transform_ch(my_ch, i), cipher_txt))
 
 
-def crack_transposition(cipher, i):
-    msg = str()
-    group_num = (len(cipher) + (i - 1)) / i
-    if i == 5:
-        print group_num
-        print len(cipher)
-    if not my_list.__contains__(group_num):
-        my_list.append(group_num)
-        for j in range(0, group_num):
-            index = j
-            while index < len(cipher):
-                msg += cipher[index]
-                index += group_num
-        return msg
-    else:
-        return ''
+def crack_transposition(cipher, msg_col_num):
+    msg = cipher
+    msg_row_num = (len(cipher) + (msg_col_num - 1)) / msg_col_num
+    idx_step = msg_row_num - 1
+    padding_col_num = msg_row_num * msg_col_num - len(cipher)
+    for idx in range(0, len(cipher)):
+        final_index = idx
+        
+        msg[idx] = cipher[idx]
+    return msg
 
 
-print return_new_str(6)
+print substitution(6)
 
-new_str = return_new_str(6)
+new_str = substitution(6)
 my_list = []
 for another_i in range(2, 1276):
     res = crack_transposition(new_str, another_i)
@@ -58,6 +52,8 @@ for another_i in range(2, 1276):
         print res
 
 print '---'
+
+print 'from cipher text 0481592637'
 
 my_list = []
 for another_i in range(2, 10):
