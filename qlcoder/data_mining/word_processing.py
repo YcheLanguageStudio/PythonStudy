@@ -6,24 +6,31 @@ with open('word_list.txt') as fs:
     english_words = fs.readlines()
 
 english_words = map(lambda word: word[0: len(word) - 2], english_words)
+english_words = set(english_words)
 
 kb_mp = dict()
-kb_mp['2'] = ['q', 'b', 'x']
-kb_mp['3'] = ['z', 'u', 'v']
-kb_mp['4'] = ['g', 'h', 'j']
-kb_mp['5'] = ['m', 'p', 'l']
-kb_mp['6'] = ['f', 'c', 'y', 't']
-kb_mp['7'] = ['k', 'n', 'r']
-kb_mp['8'] = ['a', 'e', 'w']
-kb_mp['9'] = ['i', 'd', 'o', 's']
+kb_mp['2'] = ['q','b','x']
+kb_mp['3'] = ['z','u','v']
+kb_mp['4'] = ['g','h','j']
+kb_mp['5'] = ['m','p','l']
+kb_mp['6'] = ['f','c','y','t']
+kb_mp['7'] = ['k','n','r']
+kb_mp['8'] = ['a','e','w']
+kb_mp['9'] = ['i','d','o','s']
 
 
 def print_possibles(my_str):
     if len(my_str) == 0:
         return
     print '-------------------------'
+    tmp = list()
     for ele in dfs(my_str):
-        print ele
+        if english_words.__contains__(ele):
+            tmp.append(ele)
+    if len(tmp) > 0:
+        print reduce(lambda x, y: x + ',' + y, tmp)
+    else:
+        print ' or . or !'
 
 
 def dfs(my_str):
@@ -37,7 +44,7 @@ def dfs(my_str):
     return ret_res
 
 
-# for text in text_strs:
-#     print_possibles(text)
-
-print_possibles('648')
+for text in text_strs:
+    print_possibles(text)
+#
+# print_possibles('648')
