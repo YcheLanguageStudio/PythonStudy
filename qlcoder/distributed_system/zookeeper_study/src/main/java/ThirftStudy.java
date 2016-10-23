@@ -14,13 +14,21 @@ import qlcoder.Type;
 public class ThirftStudy {
     public static void main(String[] args) {
         try {
-            TTransport transport;
-            transport = new TSocket("121.201.63.168", 9090);
+            //Server Ip and port information
+            TTransport transport = new TSocket("121.201.63.168", 9090, 30000);
+
+            //Binary Protocol
+            TProtocol protocol = new TBinaryProtocol(transport);
+
+            //Rpc Interface
+            Task.Client client = new Task.Client(protocol);
+
+            //Open Socket
             transport.open();
 
-            TProtocol protocol = new TBinaryProtocol(transport);
-            Task.Client client = new Task.Client(protocol);
             System.out.println(client.getTaskInfo(new Auth("cheyulin", Type.GET_ANSWER)));
+
+            //Close Socket
             transport.close();
         } catch (TException x) {
             x.printStackTrace();
