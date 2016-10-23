@@ -35,18 +35,20 @@ def crack_transposition(cipher, msg_col_dim):
 
     idx_step = msg_row_dim - 1
     padding_col_num = msg_row_dim * msg_col_dim - len(cipher)
-    start_change_idx = (msg_col_dim - padding_col_num) * msg_row_dim
+    start_change_idx = (msg_col_dim - padding_col_num) * msg_row_dim - 1
 
+    # print 'idx_step:', idx_step
+    # print 'start_change_idx', start_change_idx
     for idx in range(0, len(cipher)):
         final_index = idx
         if final_index >= start_change_idx:
             final_index += (final_index - start_change_idx + idx_step) / idx_step
-        print final_index
+        # print 'idx:', idx, ', final_index:', final_index
         msg_row_idx = final_index % msg_row_dim
         msg_col_idx = (final_index + msg_row_dim - 1) / msg_row_dim
         # print msg_row_idx * msg_col_dim + msg_col_idx
         msg_idx = msg_row_idx * msg_col_dim + msg_col_idx
-        print msg_idx
+        # print 'msg_index:', msg_idx
         msg_ch_arr[msg_idx] = cipher[idx]
 
     return ''.join(msg_ch_arr)
