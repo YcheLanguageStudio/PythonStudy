@@ -9,7 +9,7 @@ This is a repository to record my Python 2.7 study.
 - [qlcoder](qlcoder)
 
 ##Crypto Study
-- [crypto_homework](crypto_homework)
+- [course materials](course_materials)
 
 ##Other
 - [other](other)
