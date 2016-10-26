@@ -45,6 +45,8 @@ def notify_message(vertex_index, message_str):
 
 for i in range(limit):
     r = random.randint(1, limit)
+    if i < 10:
+        print r
     if i % 3 == 0:
         message_str = ''.join(random.sample(string.ascii_letters, 4))
         notify_message(r, message_str)
