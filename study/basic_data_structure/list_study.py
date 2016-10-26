@@ -1,4 +1,11 @@
+import copy
+
+
 # Simple Data Structure Usage: list
+def process_list(your_list):
+    your_list[0] = 5
+
+
 if __name__ == '__main__':
     my_list = list([None])
     my_list.append(1)
@@ -11,10 +18,20 @@ if __name__ == '__main__':
 
     print '.....'
 
-    for i in range(0,len(my_list)):
+    for i in range(0, len(my_list)):
         print my_list[i]
 
     print 'Totoal len:' + str(len(my_list))
 
-
     print my_list[0]
+
+    my_list1 = [1, 2]
+    my_list3 = copy.deepcopy(my_list1)
+    my_list4 = copy.copy(my_list1)
+    my_list2 = my_list1
+    my_list1[0] = 3
+    print my_list2[0]
+    process_list(my_list1)
+    print my_list2[0]
+    print my_list3[0]
+    print my_list4[0]
