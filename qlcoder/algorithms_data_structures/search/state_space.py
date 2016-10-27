@@ -16,6 +16,8 @@ def init_map(row_num, col_num, map_info):
 def dfs_search(init_row_idx, init_col_idx, marked_num, whole_num, path_list, my_map_arr):
     my_changed_row_idx = init_row_idx
     my_changed_col_idx = init_col_idx
+    max_col_idx = my_map_arr.shape[1] - 1
+    max_row_idx = my_map_arr.shape[0] - 1
     if marked_num == whole_num:
         print ''.join(path_list)
         return True
@@ -25,7 +27,7 @@ def dfs_search(init_row_idx, init_col_idx, marked_num, whole_num, path_list, my_
                 if my_map_arr[init_col_idx - i] == 1:
                     break
                 else:
-                    my_changed_row_idx -= 1
+                    my_changed_col_idx -= 1
                     my_map_arr[init_row_idx][my_changed_col_idx] = 1
                     marked_num += 1
             path_list.append('l')
@@ -33,13 +35,17 @@ def dfs_search(init_row_idx, init_col_idx, marked_num, whole_num, path_list, my_
                            path_list, my_map_arr) == True):
                 return True
 
-        # change state for left
-        # if ok
-        # if(dfs_search())
+        if init_col_idx + 1 <= max_col_idx and my_map_arr[init_col_idx][init_col_idx - 1] == 0:
+            for i in range(1, max_col_idx - init_col_idx + 1):
+                if my_map_arr[init_col_idx + i] == 1:
+                    break
+                else:
+                    my_changed_col_idx += 1
+                    my_map_arr[init_row_idx][my_changed_col_idx] = 1
+                    marked_num += 1
 
-        # change state for left
-        # if ok
-        # if(dfs_search())
+        
+
         return False
 
 
