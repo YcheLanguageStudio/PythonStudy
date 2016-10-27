@@ -50,7 +50,6 @@ def naive_fib(n):
     else:
         return naive_fib(n - 1) + naive_fib(n - 2)
 
-
 print q_pow(2, 4)
 print yche_pow(2, 4)
 print yche_pow(2, 5)
