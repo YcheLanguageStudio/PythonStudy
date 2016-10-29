@@ -113,7 +113,7 @@ def get_answer_dict(my_row_num, my_col_num, my_map_info):
     for i in range(0, len(my_map_info)):
         tmp_row_idx = i / my_col_num
         tmp_col_idx = i % my_col_num
-        print tmp_row_idx,tmp_col_idx
+        print tmp_row_idx, tmp_col_idx
         tmp_list = list()
         if my_map_arr[tmp_row_idx][tmp_col_idx] == 0:
             new_map_arr = copy.deepcopy(my_map_arr)

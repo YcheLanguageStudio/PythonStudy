@@ -1,12 +1,12 @@
 import numpy as np
 
 
-def fib(n, ta, tb, a, b):
+def pei_fib(n, ta, tb, a, b):
     if n == 0:
         return tb
     if n & 1:
-        return fib(n / 2, a * ta + b * tb, b * ta + tb * (a - b), a * a + b * b, b * (2 * a - b))
-    return fib(n / 2, ta, tb, a * a + b * b, b * (2 * a - b))
+        return pei_fib(n / 2, a * ta + b * tb, b * ta + tb * (a - b), a * a + b * b, b * (2 * a - b))
+    return pei_fib(n / 2, ta, tb, a * a + b * b, b * (2 * a - b))
 
 
 # if number of bits is odd, we multiply a
@@ -50,6 +50,7 @@ def naive_fib(n):
     else:
         return naive_fib(n - 1) + naive_fib(n - 2)
 
+
 print q_pow(2, 4)
 print yche_pow(2, 4)
 print yche_pow(2, 5)
@@ -57,5 +58,3 @@ print yche_pow(2, 0)
 
 print fib(10)
 print naive_fib(10)
-
-

@@ -24,3 +24,4 @@ def execute_answer():
 # execute_answer()
 my_json_str = {"level": 3, "modu": "2", "map": ["100", "010", "011"], "pieces": ["XXX", "X", ".X,XX", "X,X,X"]}
 my_json_dict = dict(my_json_str)
+print my_json_dict
