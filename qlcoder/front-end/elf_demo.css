@@ -1,4 +1,0 @@
-input:checked + input:checked + * + input:checked + * ~ p:after {
-  content: "helloworld"; }
-
-/*# sourceMappingURL=elf_demo.css.map */
