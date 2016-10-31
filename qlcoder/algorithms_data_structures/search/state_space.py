@@ -35,8 +35,6 @@ def get_connected_number(my_map_arr):
 
     frontier_queue = list()
     frontier_queue.append((start_row_idx, start_col_idx))
-    # print 'in'
-    # print (start_row_idx, start_col_idx)
     copy_map_arr[start_row_idx][start_col_idx] = 2
     while len(frontier_queue) > 0:
         # mark
@@ -45,27 +43,28 @@ def get_connected_number(my_map_arr):
         frontier_queue.pop(0)
         bfs_mark_num += 1
 
-        # expand
         # expand up side
         if start_row_idx - 1 >= 0 and copy_map_arr[start_row_idx - 1][start_col_idx] == 0:
             frontier_queue.append((start_row_idx - 1, start_col_idx))
-            copy_map_arr[start_row_idx - 1][start_col_idx]=2
+            copy_map_arr[start_row_idx - 1][start_col_idx] = 2
         # expand down side
         if start_row_idx + 1 < row_num and copy_map_arr[start_row_idx + 1][start_col_idx] == 0:
             frontier_queue.append((start_row_idx + 1, start_col_idx))
-            copy_map_arr[start_row_idx + 1][start_col_idx]=2
+            copy_map_arr[start_row_idx + 1][start_col_idx] = 2
         # expand left side
         if start_col_idx - 1 >= 0 and copy_map_arr[start_row_idx][start_col_idx - 1] == 0:
             frontier_queue.append((start_row_idx, start_col_idx - 1))
-            copy_map_arr[start_row_idx][start_col_idx - 1]=2
+            copy_map_arr[start_row_idx][start_col_idx - 1] = 2
         # expand right side
         if start_col_idx + 1 < col_num and copy_map_arr[start_row_idx][start_col_idx + 1] == 0:
             frontier_queue.append((start_row_idx, start_col_idx + 1))
-            copy_map_arr[start_row_idx][start_col_idx + 1]=2
-            # print len(frontier_queue)
+            copy_map_arr[start_row_idx][start_col_idx + 1] = 2
 
-    # print 'out'
     return bfs_mark_num
+
+
+def get_global_single_exit_num(my_map_arr):
+    return -1
 
 
 def dfs_search(init_row_idx, init_col_idx, marked_num, path_list, my_map_arr):
@@ -78,8 +77,7 @@ def dfs_search(init_row_idx, init_col_idx, marked_num, path_list, my_map_arr):
     if marked_num == whole_num:
         return True
     else:
-        # prune if there are two connected components
-        # print get_connected_number(my_map_arr)
+        # prune if there are more than one connected components
         if get_connected_number(my_map_arr) != whole_num - marked_num:
             return False
 
@@ -185,9 +183,9 @@ def get_answer_dict(my_row_num, my_col_num, my_map_info):
 
 
 if __name__ == '__main__':
-    my_map_str = '111000010000000100010010110000111100010100001100100110000001011000000100001111000000100001000000110011000011000000100000111100000000100000001110000010100001110000100000001001000000001000010001000001100000100001010011010001100010000111110001000000100000100000110001000001100011100101000101011100000001011101010000110000000001000000101000011011000000001000110000'
-    my_row_num_int = 18
-    my_col_num_int = 20
+    my_map_str = '000110000100000000000000110100001100000100100000100101000111100001000010000001000100011110000100000001110000110000001000000100010001100100100010101000000100010001100010001000100000000100001011110011000010001000011000000111110000001000000000011001111100010001000010000000111100010001000010000011000001010000000110100110000100010001100000100001100100000000000010101001000001001000100010001000001100011000100010000110011000010000000100000111111100010001000100000111001111010100000100110000010011010100001101100000010000100100001000011110000000100011001110001110011010000001110001100000100010000101000000011001100010000100010010'
+    my_row_num_int = 24
+    my_col_num_int = 26
 
     my_dict = get_answer_dict(my_row_num_int, my_col_num_int, my_map_str)
     print my_dict

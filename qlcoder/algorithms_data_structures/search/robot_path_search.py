@@ -4,7 +4,7 @@
 import urllib2
 import re
 import state_space
-import time
+
 
 def execute_answer():
     headers = {
@@ -38,5 +38,6 @@ def execute_answer():
     print response_stream.read()
     # time.sleep(5)
 
-for i in range(1,100):
+
+for i in range(1, 100):
     execute_answer()
