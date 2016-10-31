@@ -15,10 +15,10 @@ public:
     using RobotMapType = vector<vector<char>>;
 
     RobotSolver(int row_num, int col_num, string map_zero_one_str) : row_num_(row_num), col_num_(col_num),
-                                                                     marked_num_(0) {
+                                                                     init_marked_num_(0) {
         for (auto my_ch:map_zero_one_str) {
             if (my_ch == OCCUPY_CHAR)
-                marked_num_++;
+                init_marked_num_++;
         }
 
         robot_map_.resize(row_num_);
@@ -30,6 +30,8 @@ public:
                 robot_map_[row_idx][col_idx] = map_zero_one_str[row_idx * col_num_ + col_idx];
             }
         }
+
+        cout << row_num_<<","<<col_num_<<endl;
     }
 
     string GetAnswerUrl();
@@ -37,7 +39,7 @@ public:
 private:
     int row_num_;
     int col_num_;
-    int marked_num_;
+    int init_marked_num_;
     RobotMapType robot_map_;
 
 

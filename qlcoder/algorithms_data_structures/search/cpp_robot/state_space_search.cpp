@@ -25,7 +25,7 @@ int RobotSolver::GetConnectedCount(RobotMapType copy_map_arr) {
 
     queue<pair<int, int>> frontier_queue;
     frontier_queue.push(make_pair(start_row_idx, start_col_idx));
-    copy_map_arr[start_row_idx][start_col_idx] = '2';
+    copy_map_arr[start_row_idx][start_col_idx] = MARK_CHAR;
 
     for (; frontier_queue.size() > 0;) {
         //mark
@@ -43,15 +43,14 @@ int RobotSolver::GetConnectedCount(RobotMapType copy_map_arr) {
             frontier_queue.push(make_pair(start_row_idx + 1, start_col_idx));
             copy_map_arr[start_row_idx + 1][start_col_idx] = MARK_CHAR;
         }
-        if (start_col_idx - 1 >= 0 and copy_map_arr[start_row_idx][start_col_idx - 1] == 0) {
+        if (start_col_idx - 1 >= 0 and copy_map_arr[start_row_idx][start_col_idx - 1] == EMPTY_CHAR) {
             frontier_queue.push(make_pair(start_row_idx, start_col_idx - 1));
             copy_map_arr[start_row_idx][start_col_idx - 1] = MARK_CHAR;
         }
-        if (start_col_idx + 1 < col_num and copy_map_arr[start_row_idx][start_col_idx + 1] == 0) {
+        if (start_col_idx + 1 < col_num and copy_map_arr[start_row_idx][start_col_idx + 1] == EMPTY_CHAR) {
             frontier_queue.push(make_pair(start_row_idx, start_col_idx + 1));
             copy_map_arr[start_row_idx][start_col_idx + 1] = MARK_CHAR;
         }
-
     }
 
     return bfs_mark_num;
@@ -61,8 +60,8 @@ bool RobotSolver::DepthFirstSearch(int init_row_idx, int init_col_idx, int marke
                                    list<char> &path_list, RobotMapType &my_map_arr) {
     auto my_changed_row_idx = init_row_idx;
     auto my_changed_col_idx = init_col_idx;
-    auto max_col_idx = my_map_arr.size() - 1;
-    auto max_row_idx = my_map_arr[0].size() - 1;
+    auto max_row_idx = my_map_arr.size() - 1;
+    auto max_col_idx = my_map_arr[0].size() - 1;
     auto whole_num = row_num_ * col_num_;
     if (marked_num == whole_num)
         return true;
@@ -91,8 +90,8 @@ bool RobotSolver::DepthFirstSearch(int init_row_idx, int init_col_idx, int marke
                 for (auto i = my_changed_col_idx; i < init_col_idx; i++) {
                     my_map_arr[init_row_idx][i] = EMPTY_CHAR;
                     marked_num--;
-                    my_changed_col_idx = init_col_idx;
                 }
+                my_changed_col_idx = init_col_idx;
             }
         }
 
@@ -140,8 +139,8 @@ bool RobotSolver::DepthFirstSearch(int init_row_idx, int init_col_idx, int marke
                 for (auto i = my_changed_row_idx; i < init_row_idx; i++) {
                     my_map_arr[i][init_col_idx] = EMPTY_CHAR;
                     marked_num--;
-                    my_changed_row_idx = init_row_idx;
                 }
+                my_changed_row_idx = init_row_idx;
             }
 
         }
@@ -149,7 +148,7 @@ bool RobotSolver::DepthFirstSearch(int init_row_idx, int init_col_idx, int marke
         //move down
         if (init_row_idx + 1 <= max_row_idx and my_map_arr[init_row_idx + 1][init_col_idx] == EMPTY_CHAR) {
             for (auto idx = init_row_idx + 1; idx <= max_row_idx; idx++) {
-                if (my_map_arr[idx][init_col_idx] == 1)
+                if (my_map_arr[idx][init_col_idx] == OCCUPY_CHAR)
                     break;
                 else {
                     my_map_arr[idx][init_col_idx] = OCCUPY_CHAR;
@@ -181,13 +180,13 @@ string RobotSolver::GetAnswerUrl() {
         for (auto tmp_col_idx = 0; tmp_col_idx < robot_map_[0].size(); tmp_col_idx++) {
             if (robot_map_[tmp_row_idx][tmp_col_idx] == EMPTY_CHAR) {
                 list<char> tmp_list;
-                cout << tmp_row_idx << " ," << tmp_col_idx << endl;
+                cout << "Search On " << "(" << tmp_row_idx << " ," << tmp_col_idx << ")" << endl;
                 auto new_map_arr = robot_map_;
                 new_map_arr[tmp_row_idx][tmp_col_idx] = OCCUPY_CHAR;
-                if (DepthFirstSearch(tmp_row_idx, tmp_col_idx, marked_num_, tmp_list, new_map_arr)) {
+                if (DepthFirstSearch(tmp_row_idx, tmp_col_idx, init_marked_num_ + 1, tmp_list, new_map_arr)) {
                     cout << "find it" << endl;
                     my_str_builder.clear();
-                    my_str_builder << "x=" << (tmp_row_idx + 1) << "&y=" << (tmp_col_idx + 1) + "&path=";
+                    my_str_builder << "x=" << tmp_row_idx + 1 << "&y=" << tmp_col_idx + 1 << "&path=";
                     for (auto my_char:tmp_list)
                         my_str_builder << my_char;
                     return my_str_builder.str();
