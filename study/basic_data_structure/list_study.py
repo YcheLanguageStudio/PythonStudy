@@ -36,10 +36,18 @@ if __name__ == '__main__':
     print my_list3[0]
     print my_list4[0]
 
-    my_list=[1,2,3,4,5]
-    for i in range(0,5):
+    my_list = [1, 2, 3, 4, 5]
+    for i in range(0, 5):
         print my_list[i],
 
     print '\n'
-    for i in range(0,5)[::-1]:
+    for i in range(0, 5)[::-1]:
         print my_list[i],
+
+    my_list5 = list()
+
+    print '\n'
+    my_list5.append((1, 2))
+    my_list5.append((2, 3))
+    print my_list5[0][1]
+    print my_list5

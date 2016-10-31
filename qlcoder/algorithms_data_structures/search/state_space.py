@@ -14,6 +14,60 @@ def init_map(row_num, col_num, map_info):
     return map_arr
 
 
+def get_connected_number(my_map_arr):
+    bfs_mark_num = 0
+    copy_map_arr = copy.deepcopy(my_map_arr)
+    # print copy_map_arr
+    row_num = copy_map_arr.shape[0]
+    col_num = copy_map_arr.shape[1]
+    start_row_idx = -1
+    start_col_idx = -1
+    for row_idx in range(0, row_num):
+        is_break = False
+        for col_idx in range(0, col_num):
+            if copy_map_arr[row_idx][col_idx] == 0:
+                start_row_idx = row_idx
+                start_col_idx = col_idx
+                is_break = True
+                break
+        if is_break:
+            break
+
+    frontier_queue = list()
+    frontier_queue.append((start_row_idx, start_col_idx))
+    # print 'in'
+    # print (start_row_idx, start_col_idx)
+    copy_map_arr[start_row_idx][start_col_idx] = 2
+    while len(frontier_queue) > 0:
+        # mark
+        start_row_idx = frontier_queue[0][0]
+        start_col_idx = frontier_queue[0][1]
+        frontier_queue.pop(0)
+        bfs_mark_num += 1
+
+        # expand
+        # expand up side
+        if start_row_idx - 1 >= 0 and copy_map_arr[start_row_idx - 1][start_col_idx] == 0:
+            frontier_queue.append((start_row_idx - 1, start_col_idx))
+            copy_map_arr[start_row_idx - 1][start_col_idx]=2
+        # expand down side
+        if start_row_idx + 1 < row_num and copy_map_arr[start_row_idx + 1][start_col_idx] == 0:
+            frontier_queue.append((start_row_idx + 1, start_col_idx))
+            copy_map_arr[start_row_idx + 1][start_col_idx]=2
+        # expand left side
+        if start_col_idx - 1 >= 0 and copy_map_arr[start_row_idx][start_col_idx - 1] == 0:
+            frontier_queue.append((start_row_idx, start_col_idx - 1))
+            copy_map_arr[start_row_idx][start_col_idx - 1]=2
+        # expand right side
+        if start_col_idx + 1 < col_num and copy_map_arr[start_row_idx][start_col_idx + 1] == 0:
+            frontier_queue.append((start_row_idx, start_col_idx + 1))
+            copy_map_arr[start_row_idx][start_col_idx + 1]=2
+            # print len(frontier_queue)
+
+    # print 'out'
+    return bfs_mark_num
+
+
 def dfs_search(init_row_idx, init_col_idx, marked_num, path_list, my_map_arr):
     my_changed_row_idx = init_row_idx
     my_changed_col_idx = init_col_idx
@@ -24,6 +78,11 @@ def dfs_search(init_row_idx, init_col_idx, marked_num, path_list, my_map_arr):
     if marked_num == whole_num:
         return True
     else:
+        # prune if there are two connected components
+        # print get_connected_number(my_map_arr)
+        if get_connected_number(my_map_arr) != whole_num - marked_num:
+            return False
+
         # move left
         if init_col_idx - 1 >= 0 and my_map_arr[init_row_idx][init_col_idx - 1] == 0:
             for idx in range(0, init_col_idx)[::-1]:
