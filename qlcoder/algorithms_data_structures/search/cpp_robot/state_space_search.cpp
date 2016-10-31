@@ -1,4 +1,4 @@
-#include <sstream>
+
 #include "state_space_search.h"
 
 int RobotSolver::GetConnectedCount(RobotMapType copy_map_arr) {
@@ -176,24 +176,36 @@ bool RobotSolver::DepthFirstSearch(int init_row_idx, int init_col_idx, int marke
 
 string RobotSolver::GetAnswerUrl() {
     stringstream my_str_builder;
+    atomic_bool is_break(false);
+    string ret_str = "Not find";
+
+#pragma omp parallel for num_threads(16)
     for (auto tmp_row_idx = 0; tmp_row_idx < robot_map_.size(); tmp_row_idx++) {
-        for (auto tmp_col_idx = 0; tmp_col_idx < robot_map_[0].size(); tmp_col_idx++) {
+        for (auto tmp_col_idx = 0; !is_break && tmp_col_idx < robot_map_[0].size(); tmp_col_idx++) {
             if (robot_map_[tmp_row_idx][tmp_col_idx] == EMPTY_CHAR) {
                 list<char> tmp_list;
+#pragma omp critical
                 cout << "Search On " << "(" << tmp_row_idx << " ," << tmp_col_idx << ")" << endl;
                 auto new_map_arr = robot_map_;
                 new_map_arr[tmp_row_idx][tmp_col_idx] = OCCUPY_CHAR;
                 if (DepthFirstSearch(tmp_row_idx, tmp_col_idx, init_marked_num_ + 1, tmp_list, new_map_arr)) {
-                    cout << "find it" << endl;
-                    my_str_builder.clear();
-                    my_str_builder << "http://www.qlcoder.com/train/crcheck?" << "x=" << tmp_row_idx + 1 << "&y="
-                                   << tmp_col_idx + 1 << "&path=";
-                    for (auto my_char:tmp_list)
-                        my_str_builder << my_char;
-                    return my_str_builder.str();
+#pragma omp critical
+                    if (!is_break) {
+                        is_break = true;
+
+                        cout << "find it" << endl;
+                        my_str_builder.clear();
+                        my_str_builder << "http://www.qlcoder.com/train/crcheck?" << "x=" << tmp_row_idx + 1 << "&y="
+                                       << tmp_col_idx + 1 << "&path=";
+                        for (auto my_char:tmp_list)
+                            my_str_builder << my_char;
+                        ret_str = my_str_builder.str();
+                    }
+
                 }
             }
         }
     }
-    return "Not find";
+
+    return ret_str;
 }
