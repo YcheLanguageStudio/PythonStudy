@@ -3,7 +3,7 @@
 
 import urllib2
 import re
-import state_space
+import os
 
 
 def execute_answer():
@@ -29,15 +29,24 @@ def execute_answer():
             params_dict = {'level': level, 'row_num': row_num, 'col_num': col_num, 'map_info': map_info}
     # time.sleep(5)
     print params_dict
-    paste_str = state_space.get_answer_dict(params_dict['row_num'], params_dict['col_num'], params_dict['map_info'])
-    answer_url = 'http://www.qlcoder.com/train/crcheck?'
-    new_url = answer_url + paste_str
+    os.system(
+        './cpp_robot/build/cpp_robot ' + str(params_dict['row_num']) + ' ' + str(params_dict['col_num']) + ' ' +
+        params_dict[
+            'map_info'] + '>output_res.txt')
+    new_url = str()
+    with open('output_res.txt') as fs:
+        content = fs.readlines()
+        new_url = content[len(content) - 1]
     print new_url
     request = urllib2.Request(new_url, headers=headers)
     response_stream = urllib2.urlopen(request, timeout=200)
     print response_stream.read()
-    # time.sleep(5)
 
 
-for i in range(1, 100):
-    execute_answer()
+for i in range(1, 1000):
+    try:
+        execute_answer()
+    except IOError:
+        execute_answer()
+    else:
+        execute_answer()

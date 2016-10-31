@@ -186,7 +186,8 @@ string RobotSolver::GetAnswerUrl() {
                 if (DepthFirstSearch(tmp_row_idx, tmp_col_idx, init_marked_num_ + 1, tmp_list, new_map_arr)) {
                     cout << "find it" << endl;
                     my_str_builder.clear();
-                    my_str_builder << "x=" << tmp_row_idx + 1 << "&y=" << tmp_col_idx + 1 << "&path=";
+                    my_str_builder << "http://www.qlcoder.com/train/crcheck?" << "x=" << tmp_row_idx + 1 << "&y="
+                                   << tmp_col_idx + 1 << "&path=";
                     for (auto my_char:tmp_list)
                         my_str_builder << my_char;
                     return my_str_builder.str();
