@@ -176,7 +176,7 @@ bool RobotSolver::DepthFirstSearch(int init_row_idx, int init_col_idx, int marke
 
 string RobotSolver::GetAnswerUrl() {
     stringstream my_str_builder;
-    atomic_bool is_break(false);
+    bool is_break = false;
     string ret_str = "Not find";
 
 #pragma omp parallel for num_threads(16)
@@ -185,18 +185,19 @@ string RobotSolver::GetAnswerUrl() {
             if (robot_map_[tmp_row_idx][tmp_col_idx] == EMPTY_CHAR) {
                 list<char> tmp_list;
 #pragma omp critical
-                cout << "Search On " << "(" << tmp_row_idx << " ," << tmp_col_idx << ")" << endl;
+                if (!is_break) {
+                    cout << "Search On " << "(" << tmp_row_idx << " ," << tmp_col_idx << ")" << endl;
+                }
                 auto new_map_arr = robot_map_;
                 new_map_arr[tmp_row_idx][tmp_col_idx] = OCCUPY_CHAR;
                 if (DepthFirstSearch(tmp_row_idx, tmp_col_idx, init_marked_num_ + 1, tmp_list, new_map_arr)) {
 #pragma omp critical
                     if (!is_break) {
                         is_break = true;
-
                         cout << "find it" << endl;
                         my_str_builder.clear();
-                        my_str_builder << "http://www.qlcoder.com/train/crcheck?" << "x=" << tmp_row_idx + 1 << "&y="
-                                       << tmp_col_idx + 1 << "&path=";
+                        my_str_builder << "http://www.qlcoder.com/train/crcheck?" << "x=" << tmp_row_idx + 1
+                                       << "&y=" << tmp_col_idx + 1 << "&path=";
                         for (auto my_char:tmp_list)
                             my_str_builder << my_char;
                         ret_str = my_str_builder.str();
@@ -204,6 +205,7 @@ string RobotSolver::GetAnswerUrl() {
 
                 }
             }
+
         }
     }
 
