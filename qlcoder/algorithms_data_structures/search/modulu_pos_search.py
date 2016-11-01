@@ -3,6 +3,7 @@
 
 import urllib2
 import re
+import modulo
 
 
 def execute_answer():
@@ -34,17 +35,34 @@ def transform_map_str_to_grid(map_str):
     return [map(lambda info_ch: ord(info_ch) - ord('0'), row) for row in map_str]
 
 
+def sum_piece_arr(piece_arr):
+    my_sum = 0
+    for row in piece_arr:
+        for col in row:
+            my_sum += col
+    return my_sum
+
+
 if __name__ == '__main__':
     my_json_str = {"level": 3, "modu": "2", "map": ["100", "010", "011"], "pieces": ["XXX", "X", ".X,XX", "X,X,X"]}
     my_json_dict = dict(my_json_str)
 
-    map_row = len(my_json_dict['map'])
-    map_col = len(my_json_dict['map'][0])
+    modulo_num = int(my_json_dict['modu'])
+    map_arr = transform_map_str_to_grid(my_json_str['map'])
+    map_row = len(map_arr)
+    map_col = len(map_arr[0])
+
     pieces_info = my_json_dict['pieces']
     pieces_list = get_piece_list(pieces_info=pieces_info)
-    map_arr = transform_map_str_to_grid(my_json_str['map'])
-    print 'map_row:', map_row, ', map_col:', map_col, ', pieces:', pieces_list
-    print 'map_info:', map_arr
+    piece_sum_list = map(lambda piece_arr_ele: sum_piece_arr(piece_arr_ele), pieces_list)
 
+    print 'map_row:', map_row, ', map_col:', map_col, ', pieces:', pieces_list
+    print 'pieces sum:', piece_sum_list
+    print 'map_info:', map_arr
     for piece in pieces_list:
         print piece, '\nrow_num:', len(piece), 'col_num:', len(piece[0])
+    left_cells = reduce(lambda x, y: x + y, piece_sum_list)
+    print 'left cells:', left_cells
+    path_list = list()
+    print modulo.fixed_depth_search(0, left_cells, path_list, pieces_list, piece_sum_list, map_arr, modulo_num)
+    print path_list
