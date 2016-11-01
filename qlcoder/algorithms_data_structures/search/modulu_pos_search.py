@@ -56,11 +56,7 @@ if __name__ == '__main__':
     pieces_list = get_piece_list(pieces_info=pieces_info)
     piece_sum_list = map(lambda piece_arr_ele: sum_piece_arr(piece_arr_ele), pieces_list)
 
-    print 'map_row:', map_row, ', map_col:', map_col, ', pieces:', pieces_list
-    print 'pieces sum:', piece_sum_list
-    print 'map_info:', map_arr
-    for piece in pieces_list:
-        print piece, '\nrow_num:', len(piece), 'col_num:', len(piece[0])
+    print 'map_row:', map_row, ', map_col:', map_col, ', map_info:', map_arr, ', pieces:', pieces_list, ', pieces sum:', piece_sum_list
     left_cells = reduce(lambda x, y: x + y, piece_sum_list)
     print 'left cells:', left_cells
     path_list = list()
