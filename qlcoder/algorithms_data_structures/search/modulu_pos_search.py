@@ -21,7 +21,19 @@ def execute_answer():
             print json_str
 
 
+def transform_piece_str_to_grid(piece_str):
+    rows = piece_str.split(',')
+    return [map(lambda info_ch: 1 if info_ch == 'X' else 0, row) for row in rows]
+
+
 # execute_answer()
 my_json_str = {"level": 3, "modu": "2", "map": ["100", "010", "011"], "pieces": ["XXX", "X", ".X,XX", "X,X,X"]}
 my_json_dict = dict(my_json_str)
-print my_json_dict
+map_row = len(my_json_dict['map'])
+map_col = len(my_json_dict['map'][0])
+pieces_info = my_json_dict['pieces']
+pieces_list = [transform_piece_str_to_grid(ele) for ele in pieces_info]
+print map_row, map_col, pieces_list
+
+for piece in pieces_list:
+    print piece, '\nrow_num:', len(piece), 'col_num:', len(piece[0])
