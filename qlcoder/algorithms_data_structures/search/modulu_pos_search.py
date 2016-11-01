@@ -21,19 +21,30 @@ def execute_answer():
             print json_str
 
 
+def get_piece_list(pieces_info):
+    return [transform_piece_str_to_grid(ele) for ele in pieces_info]
+
+
 def transform_piece_str_to_grid(piece_str):
     rows = piece_str.split(',')
     return [map(lambda info_ch: 1 if info_ch == 'X' else 0, row) for row in rows]
 
 
-# execute_answer()
-my_json_str = {"level": 3, "modu": "2", "map": ["100", "010", "011"], "pieces": ["XXX", "X", ".X,XX", "X,X,X"]}
-my_json_dict = dict(my_json_str)
-map_row = len(my_json_dict['map'])
-map_col = len(my_json_dict['map'][0])
-pieces_info = my_json_dict['pieces']
-pieces_list = [transform_piece_str_to_grid(ele) for ele in pieces_info]
-print map_row, map_col, pieces_list
+def transform_map_str_to_grid(map_str):
+    return [map(lambda info_ch: ord(info_ch) - ord('0'), row) for row in map_str]
 
-for piece in pieces_list:
-    print piece, '\nrow_num:', len(piece), 'col_num:', len(piece[0])
+
+if __name__ == '__main__':
+    my_json_str = {"level": 3, "modu": "2", "map": ["100", "010", "011"], "pieces": ["XXX", "X", ".X,XX", "X,X,X"]}
+    my_json_dict = dict(my_json_str)
+
+    map_row = len(my_json_dict['map'])
+    map_col = len(my_json_dict['map'][0])
+    pieces_info = my_json_dict['pieces']
+    pieces_list = get_piece_list(pieces_info=pieces_info)
+    map_arr = transform_map_str_to_grid(my_json_str['map'])
+    print 'map_row:', map_row, ', map_col:', map_col, ', pieces:', pieces_list
+    print 'map_info:', map_arr
+
+    for piece in pieces_list:
+        print piece, '\nrow_num:', len(piece), 'col_num:', len(piece[0])
