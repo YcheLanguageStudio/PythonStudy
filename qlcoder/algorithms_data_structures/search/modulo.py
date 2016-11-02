@@ -34,6 +34,7 @@ def fixed_depth_search(depth, left_cells, ref_path_list, ref_pieces_list, ref_pi
                     ref_map_arr[start_row_idx + local_row_idx][start_col_idx + local_col_idx] += \
                         ref_expand_piece[local_row_idx][local_col_idx]
                     ref_map_arr[start_row_idx + local_row_idx][start_col_idx + local_col_idx] %= modulo_num
+            # print 'current map:',ref_map_arr
             if fixed_depth_search(depth + 1, left_cells, ref_path_list, ref_pieces_list,
                                   ref_piece_sum_list, ref_map_arr, modulo_num):
                 return True

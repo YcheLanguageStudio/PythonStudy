@@ -52,18 +52,28 @@ def execute_answer():
     map_row = len(map_arr)
     map_col = len(map_arr[0])
 
+    # pieces related
     pieces_info = my_json_dict['pieces']
     pieces_list = get_piece_list(pieces_info=pieces_info)
-    pieces_list.sort(
-        lambda piece_ele_left, piece_ele_right: sum_piece_arr(piece_ele_right) - sum_piece_arr(piece_ele_left))
-    piece_sum_list = map(lambda piece_arr_ele: sum_piece_arr(piece_arr_ele), pieces_list)
+    extended_pieces_tuple_info = \
+        [(pieces_list[i], i, sum_piece_arr(pieces_list[i])) for i in range(0, len(pieces_list))]
+    extended_pieces_tuple_info.sort(lambda left, right: right[2] - left[2])
+    pieces_list = map(lambda ele: ele[0], extended_pieces_tuple_info)
+    piece_index_list = map(lambda ele: ele[1], extended_pieces_tuple_info)
+    piece_sum_list = map(lambda ele: ele[2], extended_pieces_tuple_info)
 
-    print 'map_row:', map_row, ', map_col:', map_col, ', map_info:', map_arr, ', pieces:', pieces_list, ', pieces sum:', piece_sum_list
+    print 'modu_num:', modulo_num, ',map_row:', map_row, ', map_col:', map_col, \
+        ', map_info:', map_arr, ', pieces:', pieces_list, ', pieces sum:', piece_sum_list
     left_cells = reduce(lambda x, y: x + y, piece_sum_list)
     print 'left cells:', left_cells
     path_list = list()
     print modulo.fixed_depth_search(0, left_cells, path_list, pieces_list, piece_sum_list, map_arr, modulo_num)
-    sol_str = ''.join(map(lambda my_pair: str(my_pair[0]) + str(my_pair[1]), path_list))
+
+    tmp_list = ['' for i in range(0, len(path_list))]
+    for idx in range(0, len(path_list)):
+        tmp_list[piece_index_list[idx]] = path_list[idx]
+
+    sol_str = ''.join(map(lambda my_pair: str(my_pair[0]) + str(my_pair[1]), tmp_list))
 
     new_url = 'http://www.qlcoder.com/train/moducheck?solution=' + sol_str
     print new_url
