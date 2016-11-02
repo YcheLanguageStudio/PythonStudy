@@ -1,13 +1,13 @@
-def cal_left_nums_count(ref_map_arr):
+def cal_left_nums_count(ref_map_arr, modulo_num):
     count = 0
     for row in ref_map_arr:
         for col_val in row:
-            count += col_val
+            count += (modulo_num - col_val) % modulo_num
     return count
 
 
 def fixed_depth_search(depth, left_cells, ref_path_list, ref_pieces_list, ref_piece_sum_list, ref_map_arr, modulo_num):
-    left_nums_count = cal_left_nums_count(ref_map_arr)
+    left_nums_count = cal_left_nums_count(ref_map_arr,modulo_num)
 
     if depth == len(ref_pieces_list):
         if left_nums_count == 0:
@@ -16,8 +16,10 @@ def fixed_depth_search(depth, left_cells, ref_path_list, ref_pieces_list, ref_pi
             return False
     else:
         # do pruning
+        print 'before left cells:', left_cells
         left_cells -= ref_piece_sum_list[depth]
         if left_cells < left_nums_count:
+            print 'left cells', left_cells, 'left_nums_count:', left_nums_count, 'backtrack'
             return False
 
     ref_expand_piece = ref_pieces_list[depth]
@@ -25,7 +27,7 @@ def fixed_depth_search(depth, left_cells, ref_path_list, ref_pieces_list, ref_pi
     cur_piece_col_num = len(ref_expand_piece[0])
     max_row_idx = len(ref_map_arr) - 1
     max_col_idx = len(ref_map_arr[0]) - 1
-
+    print cur_piece_row_num, cur_piece_col_num, ref_expand_piece
     for start_row_idx in range(0, max_row_idx - cur_piece_row_num + 2):
         for start_col_idx in range(0, max_col_idx - cur_piece_col_num + 2):
             ref_path_list.append((start_row_idx, start_col_idx))
