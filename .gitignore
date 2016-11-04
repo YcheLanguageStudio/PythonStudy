@@ -3,3 +3,7 @@
 
 .gitignore
 key_value_tmp.txt
+data_mining/machine_learning/target/
+distributed_system/zookeeper_study/target/
+serialization/key_redis.txt
+serialization/value_redis.txt

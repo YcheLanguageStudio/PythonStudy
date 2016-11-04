@@ -1,2 +1,4 @@
 .idea
 *.class
+key_redis.txt
+value_redis.txt

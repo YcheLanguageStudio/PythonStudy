@@ -1,53 +1,72 @@
 import os
-import zlib
 
 mp = {}
+append_offset = 0
+
+FILENAME = 'key_value_tmp.txt'
 
 
 def write_file(offset, my_bytes):
-    with open('key_value_tmp.txt', 'w+') as ofs:
+    with open(FILENAME, 'r+') as ofs:
         ofs.seek(offset)
         ofs.write(my_bytes)
     return
 
 
 def read_file(offset, my_length):
-    if not os.path.exists("key_value_tmp.txt"):
+    if not os.path.exists(FILENAME):
+        os.mknod(FILENAME)
+        os.ftruncate(os.open(FILENAME, os.O_RDWR), 102400)
         return ''
-    with open('key_value_tmp.txt', 'r') as ifs:
+    with open(FILENAME, 'r') as ifs:
         ifs.seek(offset)
-        return ifs.read(my_length)
+        return map(ord, ifs.read(my_length))
 
 
 def get(key):
-    return mp.get(key, 0)
+    if not mp.__contains__(key):
+        return 0
+    return mp[key][0]
 
 
 def put(key):
-    mp[key] = mp.get(key, 0) + 1
-    s = ''
-    for kv in mp.items():
-        s = '%s:%d\n' % kv + s
-    b_s = bytearray(s)
-    write_file(0, b_s)
+    if mp.__contains__(key):
+        mp[key][0] += 1
+        write_file(mp[key][1], chr(mp[key][0]))
+    else:
+        global append_offset
+        to_be_write = bytearray(key + chr(1) + '\0')
+        write_file(append_offset, to_be_write)
+        append_offset += len(key) + 2
+        mp[key] = [1, append_offset - 1]
 
 
 def init():
-    bytes_arr = read_file(0, 102400)
-    print bytes_arr, len(bytes_arr)
-    for li in bytes_arr.split('\n'):
-        l2 = li.split(':')
-        if len(l2) < 2:
-            print l2, len(l2), li
-            continue
-        mp[l2[0]] = int(l2[1])
+    bytes_arr = ''.join(map(chr, read_file(0, 102400)))
+    key_val_list = filter(lambda x: len(x) > 0, bytes_arr.split('\0'))
+    val_offset = 0
+    global append_offset
+    for idx in range(0, len(key_val_list)):
+        key = key_val_list[idx][0:len(key_val_list[idx]) - 1]
+        val = ord(key_val_list[idx][len(key_val_list[idx]) - 1])
+        val_offset += len(key)
+        mp[key] = [val, val_offset]
+        val_offset += 2
+        append_offset += len(key_val_list[idx]) + 1
 
 
-init()
-for i in range(1, 10):
-    put(50 * chr(i + 96))
+def some_get_put():
+    put('github.com')
+    put('www.baidu.com')
+    put('www.google.com')
+    put('blog.cheyulin.me')
+    print get('www.google.com')
+    print get('www.baidu.com')
+    print get('blog.cheyulin.me')
+    print get('github.com')
 
-encoded_str = zlib.compress(50 * chr(1 + 96))
-print len(encoded_str)
-decoded_str = zlib.decompress(encoded_str)
-print len(decoded_str)
+
+if __name__ == '__main__':
+    init()
+    print mp
+    some_get_put()
