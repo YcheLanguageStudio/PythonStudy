@@ -7,7 +7,7 @@ print yche_str
 print '-'.join(yche_str)
 
 my_str = 'The Answer is haha'
-if re.match('.*[A-a]nswer.*', my_str):
+if re.match('.*[Aa]nswer.*', my_str):
     print my_str
 else:
     print 'bad'
