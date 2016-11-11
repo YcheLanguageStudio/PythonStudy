@@ -5,24 +5,28 @@ import numpy
 import string
 
 global_digest_list = list()
-if sys.version_info[0] == 3:
-    print ("Welcome to qlcoder!")
-    print ("We find your Python version is python3.X")
-    print ("But this script needs to be executed with Python2.X\n")
-    exit()
-
-random.seed(10)
 limit = 10000000
 vertex_list = numpy.ndarray(limit + 1)
-vertex_list = map(lambda ele: [], vertex_list)
-
 my_primes = list()
-with open("primes.txt") as fs:
-    my_primes = fs.readlines()
 
-my_primes = set(map(lambda e: int(e), my_primes))
 
-print len(my_primes)
+def init_things():
+    if sys.version_info[0] == 3:
+        print ("Welcome to qlcoder!")
+        print ("We find your Python version is python3.X")
+        print ("But this script needs to be executed with Python2.X\n")
+        exit()
+
+    global vertex_list
+    random.seed(10)
+    vertex_list = map(lambda ele: [], vertex_list)
+
+    global my_primes
+    with open("primes.txt") as fs:
+        my_primes = fs.readlines()
+    my_primes = set(map(lambda e: int(e), my_primes))
+
+    print len(my_primes)
 
 
 def compute_md5(str_list):
@@ -54,18 +58,18 @@ def notify_message(vertex_index, message_str):
         notified_vertex_index = times_count * vertex_index
 
 
-for i in range(limit):
-    r = random.randint(1, limit)
-    if i % 3 == 0:
-        message_str = ''.join(random.sample(string.ascii_letters, 4))
-        notify_message(r, message_str)
-    else:
-        verbose_time_line(r)
-    if i == 99 or i == 299 or i == 999 or i == 23030 or i == 49999 or i == 66665:
-        print str(i) + ':' + compute_md5(global_digest_list)
-    if i%100000==0:
-        print i
+if __name__ == '__main__':
+    init_things()
+    for i in range(limit):
+        r = random.randint(1, limit)
+        if i % 3 == 0:
+            my_message_str = ''.join(random.sample(string.ascii_letters, 4))
+            notify_message(r, my_message_str)
+        else:
+            verbose_time_line(r)
+        if i == 99 or i == 299 or i == 999 or i == 23030 or i == 49999 or i == 66665 or i == 100000 - 1:
+            print str(i) + ':' + compute_md5(global_digest_list)
+        if i % 100000 == 0:
+            print i
 
-print 'Over'
-
-print compute_md5(global_digest_list)
+    print compute_md5(global_digest_list)
