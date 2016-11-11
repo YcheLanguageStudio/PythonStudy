@@ -32,7 +32,7 @@ def get(key):
 def put(key):
     if mp.__contains__(key):
         mp[key][0] += 1
-        write_file(mp[key][1], chr(mp[key][0]))
+        write_file(mp[key][1],  chr(mp[key][0]))
     else:
         global append_offset
         to_be_write = bytearray(key + chr(1) + '\0')
@@ -56,6 +56,7 @@ def init():
 
 
 def some_get_put():
+    put('50')
     put('github.com')
     put('www.baidu.com')
     put('www.google.com')
@@ -64,7 +65,7 @@ def some_get_put():
     print get('www.baidu.com')
     print get('blog.cheyulin.me')
     print get('github.com')
-
+    print get('50')
 
 if __name__ == '__main__':
     init()
