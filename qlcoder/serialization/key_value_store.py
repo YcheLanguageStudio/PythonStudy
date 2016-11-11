@@ -17,7 +17,6 @@ def read_file(offset, my_length):
     if not os.path.exists(FILENAME):
         os.mknod(FILENAME)
         os.ftruncate(os.open(FILENAME, os.O_RDWR), 102400)
-        return ''
     with open(FILENAME, 'r') as ifs:
         ifs.seek(offset)
         return map(ord, ifs.read(my_length))
@@ -67,7 +66,16 @@ def some_get_put():
     print get('github.com')
     print get('50')
 
+    for i in range(0, 10):
+        put(str(hex(i)))
+    print '\n'
+    for i in range(0, 20):
+        print get(str(hex(i))),
+    print '\n'
+
+
 if __name__ == '__main__':
-    init()
-    print mp
-    some_get_put()
+    for j in range(0, 20):
+        init()
+        print mp
+        some_get_put()
