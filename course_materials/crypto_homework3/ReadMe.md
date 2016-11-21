@@ -43,11 +43,28 @@ In message modification or control phase, M is able to either modify the message
 - **weakness**: this lies in the lack of authentification of communicators, which could be fixed with the introduction of digital signature and public key certificate.
 
 ##Q4 Kerberos Key Classificatin
+- **Answer**: there are three types of secret keys, corresponding to three phases in Kerberos authentification dialogue, namely authentification service exchange, ticket-granting service exchange and client/server authentification exchange.
+- **Classification on Generated Time**
+	- **keys established before**: $K_c$ denotes client's token shared between the client and AS, $K_{tgs}$ denotes the secret key shared between AS and TGS, $K_{v}$ denotes the secret key shared between TGS and V
+	- **keys established In dialogue**: $K_{c, tgs}$ denotes the secret key shared between the client and TGS, $K_{c, v}$ denotes the secret key shared between the client and V
+- **Classification on Three Phases for Authentification**:
+	In each phase, the keys used to keep the authentification of entities of communications are pointed out.
+	- **obtaining ticket-grant ticket phase**: $K_c$
+	- **obtaining service-grant ticket phase** : $K_{c, tgs}$
+	- **obtaining service phase**: $K_{c,v}$
+
+- **Classification on Two Phases for Confidentiality for Newly Generated Keys**:
+	- **establishing $K_{c, tgs}$ phase**:  $K_c$, $K_{tgs}$
+	- **establishing $K_{c,v}$ phase**:  $K_{c,tgs}$, $K_v$
+
+- **Hierarchical Protection Pictorial Description**
+<img src="./demo_key_dependency.jpg" width = "500" height = "350" alt="图片名称" align=center />
 
 
 ##Q5 Kerberos Authentification
 - **Answer**: This is to prevent the use of the tickets from workstation other than the one that initially requested them.
 - **Elaboration**: if there is no network address of C, attackers are able to intercept the ticket and used identity $ID_C$ to send messages to server $V$, from other workstations which are different from C.
+- **Attack Example**: if there is no network address of C, in client-server authentification phase, the attacker is able to intercept C's message $Ticket_{v}||Auth_c$, and sends it to sever to obtain the service from V.
 
 ##Q6 SSL vs IPsec
 - **Answer**: The reason mainly lies in that SSL is built upon TCP transport protocol with states and connections which requires synchronizations, while IPsec is much deeper without guaranteeing connections.
