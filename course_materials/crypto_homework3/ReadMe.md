@@ -6,7 +6,18 @@
 - **Security Level**: SHA-1 has a security level of $2^{80}$ bits for brute-force collision attacks. Attackers reach that level of power long before single files reach $2^{64}$ bits.  And the best attacks made by Xiaoyun Wang, Andrew Yao and Frances Yao can find collisions in the full version of SHA-1, requiring $2^{63}$ operations.
 
 ##Q2 DSS k-value Leak
-- **Answer**: a user's private key is compromised if k-value is discovered.
+- **Answer**: a user's private key is compromised if k-value is compromised.
+- **Formula**: two formulas are adopted to generate $(r, s)$ as the signature part in DSS. If a person gets $k$ from the sender, with $(r,s)$ and global public key $(p, q, g)$, $x$ could be deduced.
+$r=(g^k \mod p) \mod q$
+$s = [k^{-1}(h(m)+xr)] \mod q$
+- **Deduction**:  the deduction procedure is as follows.
+$s = [k^{-1}(h(m)+xr)] \mod q $
+$\rightarrow ks \mod q = (h(m)+xr) \mod q$
+$\rightarrow (ks-h(m)) \mod q= xr \mod q$
+$\rightarrow (ks-h(m)) \cdot r^{-1} \mod q = x \mod q $
+- **Conclusion**: thus, we can get $x \mod q$,  in formula
+$x \mod q =(ks-h(m)) \cdot r^{-1} \mod q$.
+Here, $k, s , m , r, q$ are all known things.
 
 ##Q3 Diffe-Hellman Protocol Attack
 - **Answer**: the attack procedure is elaborated as follows, namely **session key establishment phase** and **modification or control**, the user Alice is denoted as A, the middle-man is denoted as M,  the user Bob is denoted as B.
@@ -41,4 +52,6 @@ In message modification or control phase, M is able to either modify the message
 ##Q6 SSL vs IPsec
 - **Answer**: The reason mainly lies in that SSL is built upon TCP transport protocol with states and connections which requires synchronizations, while IPsec is much deeper without guaranteeing connections.
 - **SSL**: The SSL session is bidirectional and thus stateful. Hence synchronization is necessary. The change cipher spec protocol is just for this purpose.
-- **IPSec**: On thecontrary, the IPSec association is for one direction only and is not stateful, and there is thus no need to do the synchronization. Hence IPSec does not need such a protocol.
+- **IPSec**: On thecontrary, the IPSec association is for one direction only and is not stateful, and
+there is thus no need to do the synchronization. Hence IPSec does not need such a
+protocol.
