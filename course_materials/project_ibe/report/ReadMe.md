@@ -33,7 +33,7 @@ Instead, IBE requires a trusted central authority called a Private-Key Generator
 IBE offers a much simpler solution for many applications, solving the above challenge and meeting the orginal motivation.
 And two reasons are elaborated as follows.
 
-**First Resaon for Simplicity**:
+**First Resaon for Simplicity**
 
 Because the encryption key can be any bit string, it can be chosen by
 the encrypting party. The encrypting party can base its choice of bit
@@ -47,7 +47,7 @@ Expressing these requirements in the encryption key relieves the
 supporting infrastructure from managing them, thus enabling the
 infrastructure to be simpler.
 
-**Second Reason for Simplicity**:
+**Second Reason for Simplicity**
 
 Because the decryption key does not need to be generated at
 the same time, or by the same entity, as the encryption key, the
