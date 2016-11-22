@@ -13,14 +13,23 @@ which uniquely identifies a user, is the public key of the user.
 The original motivation for identity-based cryptography was to simplify certificate management
 and thus eliminate the need for Certification Authorities.
 
-**Comparison with PKI**
+**Challenge in Traditional PKI**
+
+With traditional public key cryptography, the generation of the keys,
+the publication of the associations between parties and their public keys and
+the management of all this require a dedicated secure infrastructure.
+Such an infrastructure is expensive, complex, does not scale well to large sizes,
+and does not easily extend to manage parties’ attributes, e.g., their roles and rights.
+
+**Comparison with Traditional PKI**
 
 In traditional Public-Key Infrastructure (PKI), a public-key certificate is required
 to bind the key to its user. However, certificates are not required in IBE,
 because each user has a unique identity to which they are intrinsically bound.
 Instead, IBE requires a trusted central authority called a Private-Key Generator(PKG) for generation and distribution of private keys to registered users.
 
-IBE offers a much simpler solution for many applications, solving the above challenge.
+**Simplicity of IBE**
+IBE offers a much simpler solution for many applications, solving the above challenge and meeting the orginal motivation.
 And two reasons are elaborated as follows.
 
 **First Resaon for Simplicity**:
@@ -48,7 +57,7 @@ So, there is no need for any party to store keys,
 thus, easing the management problem considerably, reducing the risk of inadvertently exposed keys
 compromising the secrecy of the protected content.
 
-**Benefits**
+**Benefit & Application**
 
 Thus, IBE removes several difficulties associated with traditional PKI such
 as certificate lookup, lifecycle management, Certificate Revocation Lists and
