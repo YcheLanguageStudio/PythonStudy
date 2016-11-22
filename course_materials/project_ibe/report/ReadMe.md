@@ -29,6 +29,7 @@ because each user has a unique identity to which they are intrinsically bound.
 Instead, IBE requires a trusted central authority called a Private-Key Generator(PKG) for generation and distribution of private keys to registered users.
 
 **Simplicity of IBE**
+
 IBE offers a much simpler solution for many applications, solving the above challenge and meeting the orginal motivation.
 And two reasons are elaborated as follows.
 
