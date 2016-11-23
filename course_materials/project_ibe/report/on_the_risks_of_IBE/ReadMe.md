@@ -2,15 +2,21 @@
 ##Q2
 What are the advantages and disadvantages of the IBE over the traditional certificate-based public-key encryption?
 
-**Disadvantages**
+###Disadvantages
 
+**Problem**
 In choosing any security system, we must recognize and accept the associated trust as-
 sumptions. How do the trust assumptions of IBE differ from those we have come to
-accept for RSA-based PKIs? In both systems, we place trust in the correctness of the
+accept for RSA-based PKIs?
+
+**Same Trust Assumption**
+In both systems, we place trust in the correctness of the
 cryptographic algorithms and their implementations. We must also place trust in the
 management of cryptographic keys: how the sender determines the correct public key
 for a recipient and how the recipient’s private key(s) are secured, so both parties have
-confidence that the communication is private. As IBE provides a novel key distribu-
+confidence that the communication is private.
+
+As IBE provides a novel key distribu-
 tion mechanism, we should closely examine the trust assumptions associated with that
 mechanism.As described previously, we believe that practical deployment of IBE and/or RSA
 requires domain-based administration of keying material, where each domain manages
@@ -23,19 +29,27 @@ cate, obtain the recipient’s public key. In this aspect, IBE and RSA have simi
 assumptions. In practice, PKG parameters and CA certificates can both be distributed
 via DNS/DNSSEC [1], [8], [16].
 
+**Bad Aspects of PKG PR-Key Compromise**
 We must also trust that the PKG/CA private key is known only to the PKG/CA.
 Compromise of the PKG private key compromises the private keys of all users in that
 domain. In contrast, compromise of the CA private key enables the attacker to sign and
 publish new compromised public keys, tricking senders into encrypting new messages
 to these public keys, though it does not compromise existing private keys or messages
-encrypted to those keys. In RSA-based PKIs, this risk is typically addressed by keep-
+encrypted to those keys.
+
+In RSA-based PKIs, this risk is typically addressed by keep-
 ing the CA private key offline so it is not subject to online attacks. Keeping the PKG
-offline is feasible only if long-lived keys are used. However, IBE must use short-lived
+offline is feasible only if long-lived keys are used.
+
+**Revocation makes PKG online PR-Key**
+However, IBE must use short-lived
 keys to support revocation [4], as there is no revocation method for IBE analogous to
 X.509’s CRLs or OCSP. So, in practice, the PKG must remain online, with the asso-
 ciated increased risk of compromise. Thus, in this aspect, IBE requires stronger trust
 assumptions than RSA, requiring a fully-trusted, online entity (the PKG), as opposed to
 a partially-trusted (with respect to secrecy of user private keys), offline entity (the CA).
+
+**Users' Private Key Transmission**
 We also require a trustworthy process by which recipients obtain and manage their
 private keys. For modern RSA PKIs, recipients typically generate and maintain sole
 control over their private keys. As part of the certificate request and issuance process,
@@ -47,6 +61,7 @@ with the wrong recipients. For IBE, however, we must also trust that the private
 is not compromised at the PKG or on the network. Again, IBE requires stronger trust
 assumptions than RSA.
 
+**PKG as a possible man-in-the-middle**
 It is well understood that IBE includes a type of key escrow, because the PKG
 generates the user’s private keys [2], [5]. The PKG is a fully-trusted entity that could
 decrypt all messages in the domain, unlike a traditional CA which has no access to user
@@ -56,15 +71,15 @@ can consider IBE trust assumptions to be in between solutions that provide stron
 to-end security and gateway-based systems, where the sender must trust the recipient’s
 domain administrators to properly handle encrypted messages [3], [7].
 
+**Conclusion**
 Thus, we conclude that, to solve the key distribution problem for secure email, IBE
 requires us to accept stronger trust assumptions, when compared with RSA-based PKIs.
-The IBE PKG is a fully-trusted entity which must remain online in practice to support
+The IBE PKG is a **fully-trusted entity** which must remain online in practice to support
 the use of short-lived keys for revocation. Unlike an offline CA,
-the PKG can decrypt allmessages destined for recipients in the domain,
+the PKG can decrypt all messages destined for recipients in the domain,
 providing a weaker form of end-to-end security than traditional RSA-based PKIs.
 
-
-**Advantages**
+###Advantages
 
 We identify three unique benefits of IBE that are not provided by today’s RSA based
 secure email systems such as S/MIME.
