@@ -71,7 +71,7 @@ What are the advantages and disadvantages of the IBE over the traditional certif
 
 ###Disadvantages
 
-**Huge Cost of PKG PR-Key Compromise**
+**PKG PR-Key Compromise Cost Probelm**
 
 We must also trust that the PKG/CA private key is known only to the PKG/CA.
 Compromise of the PKG private key compromises the private keys of all users in that
@@ -80,14 +80,15 @@ publish new compromised public keys, tricking senders into encrypting new messag
 to these public keys, though it does not compromise existing private keys or messages
 encrypted to those keys.
 
-**Bad Effects in Revocation of PU-Key**
+**Revocation of PU-Key Problem**
+
 IBE must use short-lived keys to support revocation, as there is no revocation method for IBE analogous to
 X.509’s CRLs or OCSP. So, in practice, the PKG must remain online, with the asso-
 ciated increased risk of compromise. Thus, in this aspect, IBE requires stronger trust
 assumptions than RSA, requiring a fully-trusted, online entity (the PKG), as opposed to
 a partially-trusted (with respect to secrecy of user private keys), offline entity (the CA).
 
-**Users' Private Key Transmission**
+**Users' PR-Key Transmission Problem**
 
 We also require a trustworthy process by which recipients obtain and manage their
 private keys. For modern RSA PKIs, recipients typically generate and maintain sole
