@@ -69,6 +69,10 @@ delegations of decryption keys, forward secure encryption shcmes.
 ##Q2
 What are the advantages and disadvantages of the IBE over the traditional certificate-based public-key encryption?
 
+There are many disavantages in IBE, while advantages of IBE could be achieved by slightly modifying
+traditional certificate-based public-key encryption schema. Thus, disadvantages are elborated first, and
+advantages are elaborated second.
+
 ###Disadvantages
 
 **PKG PR-Key Compromise Cost Probelm**
@@ -123,6 +127,47 @@ It is well understood that IBE includes a type of key escrow, because the PKG
 generates the user’s private keys. PKG is able to sign users' message, thus,
 non-repudiation is not guaranteed in IBE. A user could repudiate that the message
 is signed by PKG.
+
+##Advantages
+
+**Elimination of User Key Distribution**
+
+In IBE once the sender obtains the parameters of a particular domain’s PKG,
+he can compute the public key of any user in that
+domain. That is, instead of requiring one online (public) key fetch operation per
+recipient as in RSA, IBE only requires one online key fetch operation per domain
+(the PKG’s key). By effectively eliminating the need to distribute end user public
+keys, IBE addresses a major hurdle in widespread deployment and use of secure
+email. This is perhaps the most important benefit of IBE.
+
+**Elimination of Certificate and CA**
+
+Digital certificate and certification authorities are not needed here.
+Because receiver’s identifier information is used, sender needn’t to retrieve receiver’s public key.
+Thus, CA is not required to issue public keys.
+
+**Policy Based Encryption**
+
+Using IBE the sender can associate arbitrary policies
+with the encrypted email message. It can do so by concatenating the policy with the
+recipient’s ID prior to computing the public key. When the message is encrypted
+using this key, the PKG can enforce the sender’s policy regarding the release of
+the private key. For example, the sender can postdate the message by including a
+specific date in the encryption key, and the PKG will then release the correspond-
+ing key only on or after that date. This benefit is beginning to gain value as email
+messaging is being used increasingly for formal communication and is being incor-
+porated into workflow systems.
+
+**Implicit client mobility**
+
+In IBE the receiver can contact the PKG whenever it needs
+a private key. Therefore, as long as the receiver can contact the PKG, IBE provides
+seamless client mobility as the recipient can use any device from any location to
+access private keys for email decryption. This benefit is very valuable as users often
+check email using a variety of devices such as PDAs and laptops and do so from
+a variety of locations. In RSA users can utilize smartcards or online credential
+repositories to provide client mobility but this benefit is not provided implicitly.
+
 
 ##Q3
 Can an IBE system be used for signing digital documents? If yes, can the digital signature be used for nonrepudiation?
