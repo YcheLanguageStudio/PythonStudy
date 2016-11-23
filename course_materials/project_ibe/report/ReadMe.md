@@ -46,11 +46,11 @@ There are many disadvantages in IBE, while advantages of IBE could be achieved b
 
 ###Disadvantages
 
-**PKG PR-Key Compromise Cost Probelm**
+**PKG PR-Key Compromise Cost Problem**
 
 We must also trust that the PKG/CA private key is known only to the PKG/CA. Compromise of the PKG private key compromises the private keys of all users in that domain. In contrast, compromise of the CA private key enables the attacker to sign and publish new compromised public keys, tricking senders into encrypting new messages to these public keys, though it does not compromise existing private keys or messages encrypted to those keys.
 
-**Revocation of PU-Key Problem**
+**Revocation of PU-Key Incurred Problem**
 
 IBE must use short-lived keys to support revocation, as there is no revocation method for IBE analogous to X.509’s CRLs or OCSP. So, in practice, the PKG must remain online, with the associated increased risk of compromise. Thus, in this aspect, IBE requires stronger trust assumptions than RSA, requiring a fully-trusted, online entity (the PKG), as opposed to a partially-trusted (with respect to secrecy of user private keys), offline entity (the CA).
 
@@ -101,14 +101,14 @@ If the PKG is trusty and its private key has not been compromised, which means i
 To prove it can provide the functionality of signing digital documents, we need to prove it can provide sender authentication and message integrity. The specific key generation and key usage is as follows, where PKG is the private key generator, Alice is the message sender, Bob is the message receiver.
 
 - Initialization Phase:
-PKG creates its private and public key pair, denoted as $sk_{PKG}$ and $pk_{PKG}$, where $sk$ stands for secret key and $pk$ stands for public key.
+PKG creates its private and public key pair, denoted as  $sk_{PKG}$  and  $pk_{PKG}$  , where  $sk$  stands for secret key and     $pk$  stands for public key.
 - Authentication  Phase:
-Alice authenticates herself to PKG and obtains a private key $sk_{ID_{Alice}}$, which is associated with her identity $ID_{Alice}$.
+Alice authenticates herself to PKG and obtains a private key  $sk_{ID_{Alice}}$  , which is associated with her identity    $ID_{Alice}$  .
 - Signing Phase:
-Alice create a signature $sig$, using her private key $sk_{ID_{Alice}}$ on the message $msg$, and then sends $msg||sig$ to Bob.
+Alice create a signature  $sig$  , using her private key  $sk_{ID_{Alice}}$  on the message  $msg$  , and then sends  $msg||sig$  to Bob.
 - Check Sender Authentication and Data Integrity Phase:
-	- Bob receives $msg^{'}||sig^{'}$ and then splits them. Then bob verify by using $ID_{Alcie}$ and $pk_{PKG}$ set up before to confirm the sender authentication and data integrity.
-	- The verifier hashes $msg^{'}$, getting $hash(msg^{'})$, and then use $(ID_{Alcie}, pk_{PKG})$ as Alice's public key decrpts $sig^{'}$, then compare $D_{(ID_{Alcie}, pk_{PKG})}(sig^{'})$ with $hash(msg^{'})$. If they are met then sender authentication is met sicne only PKG and Alice have Alice's private key, data integrity is also met since the hashed message is the same as the hash value from Alcie.
+	- Bob receives  $msg^{'}||sig^{'}$  and then splits them. Then bob verify by using  $ID_{Alcie}$ and $pk_{PKG}$  set up before to confirm the sender authentication and data integrity.
+	- The verifier hashes  $msg^{'}$  , getting  $hash(msg^{'})$  , and then use  $(ID_{Alcie}, pk_{PKG})$   as Alice's public key decrpts  $sig^{'}$  , then compare  $D_{(ID_{Alcie}, pk_{PKG})}(sig^{'})$  with  $hash(msg^{'})$  . If they are met then sender authentication is met sicne only PKG and Alice have Alice's private key, data integrity is also met since the hashed message is the same as the hash value from Alcie.
 
 **If yes, can the digital signature be used for non-repudiation?**
 
@@ -122,3 +122,37 @@ However, non-repudiation means that only an entity which possesses a signing key
 
 ##Q4
 Do you think IBE will be widely used? Please justify your conclusion.
+
+From available resources, I think IBE will not be widely used.
+
+**Advantages vs Disadvantages**
+
+From Q1, we know the original motivation of introducing IBE is to simplify certificate management and thus eliminate the need for Certification Authorities.  However, advantages of IBE could also be achieved by slightly modifying traditional certificate-based public-key encryption schema. The detail explanation could be found in paper `Khurana H, Basney J. On the risks of IBE[C]//International Workshop on Applied PKC. 2006: 1-10.`
+
+Thus, the advantages elaborated in Q2 are not significant, compared with disadvantages and built-in flaws in IBE design. The elimination of user key distribution, certificate, certificate authorities, flexibility of policy-based encryption, implicitly client mobility are not hard to achieve with some modifications of traditional certificate-based public key cryptography systems such as secure email systems S/MIME.
+
+**Important Weakness**
+
+The disadvantages are hard to resolve. I list the most important ones.
+
+***PKG PR-Key Compromise Cost Problem***
+
+The compromise of PKG's private key will make the whole system insecure. Compromise of the PKG private key compromises the private keys of all users in that domain. There is a lack of proper efficient mechanism to cope with this difficulty.
+
+***Key Escrow Problem***
+
+Non-repudiation and higher confidentiality are important properties of a good cryptography system. However, in IBE these two properties are hard to gain. To resolve the key escrow problem, there are some attempts. Boneh and Franklin suggested that
+the master secret key of the PKG be distributed using Shamir’s secret sharing technique into a number of PKGs. The user then obtains partial private key shares associated with his identity from the multiple PKGs and reconstruct a whole private key. But this “multiple PKG” method impose heavy loads on users since they should authenticate themselves to the multiple
+PKGs, which takes big communication and computational cost.
+
+***Revocation of PU-Key Problem***
+
+There is a situation as follows. Suppose that Bob wants others to use his email address to encrypt messages. But, suppose that
+the private key associated with Bob’s email address has been compromised, so he cannot use his email address as a public key any more. In order to tackle these problems, we have to use short-lived keys, which incurs overhead and complexity. Thus,  whether the time period should not be too short or too long, which makes security policy management complicated. Short-lived keys makes PKG keys has to be always online, making it easier to be attacked.
+
+***Complexity Analysis***
+
+Identity-based cryptographic schemes proposed so far in the literature can be categorized into two classes: “Pairing-
+based schemes” and “Factoring-based schemes”. The latter mainly refers to the IBE scheme pro-
+posed by Cocks. However, because of efficiency, the former “Pairing-based schemes” have been focused on by many cryptographers. Recently, cryptographic schemes that have some different structures. Even though these schemes still use
+the bilinear pairing, they turn out to be more efficient than previous schemes. (Note that although the techniques for speeding up the bilinear pairing computation have been developed by Barreto et al., the computational cost for the pairing computation is still expensive compared to a single or double exponentiation in the finite field.)
