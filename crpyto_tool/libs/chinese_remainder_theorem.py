@@ -1,10 +1,10 @@
-from extended_euclidean import ExtendedGcdEuclidean
 import copy
+from extended_euclidean import ExtendedGcdEuclidean
 
 
 def compute_multiplicative_inverse(modulo_num, another_num):
-    algo = ExtendedGcdEuclidean(modulo_num=modulo_num, another_num=another_num)
-    return algo.get_result()
+    algorithm = ExtendedGcdEuclidean(modulo_num=modulo_num, another_num=another_num)
+    return algorithm.get_result()
 
 
 class ChineseRemainder:
@@ -34,10 +34,3 @@ def list_add(left_list, right_list):
             new_list[i] += right_list[i]
         return new_list
 
-
-if __name__ == '__main__':
-    remainder_solver = ChineseRemainder([37, 49])
-    print remainder_solver.get_remainder_list(973)
-    print remainder_solver.get_original_number(
-        list_add(remainder_solver.get_remainder_list(678), remainder_solver.get_remainder_list(973)))
-    print remainder_solver.get_original_number([23, 34])
