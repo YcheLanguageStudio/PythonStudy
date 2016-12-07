@@ -1,3 +1,0 @@
-Welcome to the OpenSSL Project
-the answer is [fugu]
-
