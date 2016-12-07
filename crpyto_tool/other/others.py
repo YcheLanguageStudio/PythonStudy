@@ -5,11 +5,6 @@ def gcd_euclidean(lhs, rhs):
         return gcd_euclidean(rhs, lhs % rhs)
 
 
-# val from 0 to 25
-def encrypt(letter_index, k0, k1):
-    return (letter_index * k0 + k1) % 26
-
-
 class EngIndexBiMap:
     def __init__(self):
         self.char2index_dict = dict()
@@ -23,6 +18,11 @@ class EngIndexBiMap:
 
     def index2char(self, index):
         return self.index2char_dict[index]
+
+
+# val from 0 to 25
+def encrypt(letter_index, k0, k1):
+    return (letter_index * k0 + k1) % 26
 
 
 def cipher(msg, k0, k1):

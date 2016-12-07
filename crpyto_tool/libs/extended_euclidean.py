@@ -1,6 +1,7 @@
 class ExtendedGcdEuclidean:
-    def __init__(self, lhs, rhs):
-        self.r_list = list([lhs, rhs])
+    def __init__(self, modulo_num, another_num):
+        self.modulo_num = modulo_num
+        self.r_list = list([modulo_num, another_num])
         self.q_list = list([None, None])
         self.x_list = list([1, 0])
         self.y_list = list([0, 1])
@@ -29,23 +30,8 @@ class ExtendedGcdEuclidean:
         while not self.is_break:
             self.do_one_iteration()
 
-
-def test_extended_gcd_euclidean(lhs, rhs):
-    extend_euclidean_algo = ExtendedGcdEuclidean(lhs, rhs)
-    for i in range(0, len(extend_euclidean_algo.iter_list) - 1):
-        print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + \
-              str(extend_euclidean_algo.r_list[i]) + '\t\tq:' + \
-              str(extend_euclidean_algo.q_list[i]) + '\t\tx:' + \
-              str(extend_euclidean_algo.x_list[i]) + '\t\ty:' + \
-              str(extend_euclidean_algo.y_list[i])
-
-    i = len(extend_euclidean_algo.iter_list) - 1
-    print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + \
-          str(extend_euclidean_algo.r_list[i]) + '\t\tq:' + \
-          str(extend_euclidean_algo.q_list[i])
+    def get_result(self):
+        cur_y_val = self.y_list[-1]
+        return cur_y_val + self.modulo_num if cur_y_val < 0 else cur_y_val
 
 
-if __name__ == '__main__':
-    test_extended_gcd_euclidean(1759, 550)
-    print '\n'
-    test_extended_gcd_euclidean(1137, 29)

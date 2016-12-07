@@ -23,7 +23,7 @@ def loadData(url):
 
 
 if __name__ == '__main__':
-    page = loadData('http://www.vldb.org/2015/program/lib/FullProgram.html#D1F1045T1215R5')
+    page = loadData('http://www.vldb.org/2015/program/libs/FullProgram.html#D1F1045T1215R5')
     soup = BeautifulSoup(page, from_encoding='GB18030')
     paper_info = soup.find_all('div', {'class': 'booklet_paper_folded'});
     path = r'/home/cheyulin/Documents/Paper/GraphInDB/'
