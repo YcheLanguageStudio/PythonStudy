@@ -33,4 +33,3 @@ def list_add(left_list, right_list):
         for i in range(len(right_list)):
             new_list[i] += right_list[i]
         return new_list
-

@@ -1,8 +1,8 @@
 from crpyto_tool.libs.extended_euclidean import ExtendedGcdEuclidean
 
 
-def test_extended_gcd_euclidean(lhs, rhs):
-    extend_euclidean_algo = ExtendedGcdEuclidean(modulo_num=lhs, another_num=rhs)
+def test_extended_gcd_euclidean(modulo_num, another_num):
+    extend_euclidean_algo = ExtendedGcdEuclidean(modulo_num=modulo_num, another_num=another_num)
     for i in range(0, len(extend_euclidean_algo.iter_list) - 1):
         print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + \
               str(extend_euclidean_algo.r_list[i]) + '\t\tq:' + \

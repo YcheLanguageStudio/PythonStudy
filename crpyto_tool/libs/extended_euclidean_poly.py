@@ -2,8 +2,8 @@ from finite_field_op import FiniteFieldNumber
 
 
 class ExtendedGcdEuclidean:
-    def __init__(self, lhs, rhs):
-        self.r_list = list([lhs, rhs])
+    def __init__(self, modulo_num, another_num):
+        self.r_list = list([modulo_num, another_num])
         self.q_list = list([None, None])
         self.x_list = list([FiniteFieldNumber(1, False), FiniteFieldNumber(0, False)])
         self.y_list = list([FiniteFieldNumber(0, False), FiniteFieldNumber(1, False)])
@@ -28,21 +28,5 @@ class ExtendedGcdEuclidean:
     def compute_final_result(self):
         while not self.is_break:
             self.do_one_iteration()
-
-
-def test_extended_gcd_eculidean(lhs, rhs):
-    extend_euclidean_algo = ExtendedGcdEuclidean(lhs, rhs)
-    for i in range(0, len(extend_euclidean_algo.iter_list) - 1):
-        print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' + \
-              str(extend_euclidean_algo.r_list[i]) + '\t\tq:' + \
-              str(extend_euclidean_algo.q_list[i]) + '\t\tx:' + \
-              str(extend_euclidean_algo.x_list[i]) + \
-              '\t\ty:' + str(extend_euclidean_algo.y_list[i])
-
-    i = len(extend_euclidean_algo.iter_list) - 1
-
-    print 'iter:' + str(extend_euclidean_algo.iter_list[i]) + '\t\tr:' \
-          + str(extend_euclidean_algo.r_list[i]) + '\t\tq:' \
-          + str(extend_euclidean_algo.q_list[i])
 
 
