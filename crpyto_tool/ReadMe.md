@@ -1,13 +1,15 @@
 #Crpyto Tool
 ##Number Theorem
-- [Finite Field](libs/finite_field_op.py)
+- [Finite Field](libs/finite_field_op.py), finite field implementation, $modulo_poly(x)=x^8 + x^4 + x^3+ x + 1$, 
+basic operations are provided
 
 ##Extended Eculidean
-- [Basic](libs/extended_euclidean.py)
-- [With Finite Filed](libs/extended_euclidean_poly.py)
+- [Basic](libs/extended_euclidean.py), extended eculidean implementation for integers
+- [With Finite Filed](libs/extended_euclidean_poly.py), extended eculidean implementation for finite field numbers
 
-##Chinse Remainder Theorem
-- [Basic](libs/chinese_remainder_theorem.py)
+##Chinese Remainder Theorem
+- [Basic](libs/chinese_remainder_theorem.py), chinese remainder theorem implementation
 
 ##Hash Related
-- [HMAC](libs/hmac.py)
+- [HMAC](libs/hmac.py), hmac implementation with `md5` as the hash function 
+- [SHA-1](libs/sha1.py), components in sha1 implementation

@@ -5,54 +5,49 @@ class FiniteFieldNumber:
 
     def __init__(self, value, is_bin=True):
         if is_bin:
-            self.integer_32bits = int(value, 2)
+            self.integer = int(value, 2)
         else:
-            self.integer_32bits = value
+            self.integer = value
 
     def __lt__(self, other):
-        return self.integer_32bits < other.integer_32bits
+        return self.integer < other.integer
 
     def __add__(self, other):
-        return FiniteFieldNumber(self.integer_32bits ^ other.integer_32bits, False)
+        return FiniteFieldNumber(self.integer ^ other.integer, False)
 
     def __sub__(self, other):
-        return FiniteFieldNumber(self.integer_32bits ^ other.integer_32bits, False)
+        return FiniteFieldNumber(self.integer ^ other.integer, False)
 
     # multiplication on GF(2^8)
     def __mul__(self, other):
-        bin_str = bin(self.integer_32bits)
-        new_int32 = int(0)
-        for index in range(0, len(bin_str)):
+        bin_str = bin(self.integer)
+        new_integer = int(0)
+        for index in range(len(bin_str)):
             order_num = len(bin_str) - 1 - index
             if (bin_str[index]) == '1':
-                new_int32 ^= other.integer_32bits << order_num
-        return FiniteFieldNumber(new_int32, False) % FiniteFieldNumber(FiniteFieldNumber.magical_number, False)
+                new_integer ^= other.integer << order_num
+        return FiniteFieldNumber(new_integer, False) % FiniteFieldNumber(FiniteFieldNumber.magical_number, False)
 
     def __div__(self, other):
-        ret_integer_num = int(0)
-        tmp_finite_field_num = FiniteFieldNumber(self.integer_32bits, False)
-        while tmp_finite_field_num > other:
-            tmp_whole_len = len(bin(tmp_finite_field_num.integer_32bits))
-            other_whole_len = len(bin(other.integer_32bits))
-            tmp_finite_field_num = tmp_finite_field_num - FiniteFieldNumber(
-                other.integer_32bits << (tmp_whole_len - other_whole_len), False)
-            ret_integer_num ^= 1 << (tmp_whole_len - other_whole_len)
-        return FiniteFieldNumber(ret_integer_num, False)
+        ret_integer = int(0)
+        remainder = FiniteFieldNumber(self.integer, False)
+        while remainder > other:
+            differ_len = len(bin(remainder.integer)) - len(bin(other.integer))
+            remainder = remainder - FiniteFieldNumber(other.integer << differ_len, False)
+            ret_integer ^= 1 << differ_len
+        return FiniteFieldNumber(ret_integer, False)
 
     def __mod__(self, other):
-        tmp_finite_field_num = FiniteFieldNumber(self.integer_32bits, False)
-        while tmp_finite_field_num > other:
-            tmp_whole_len = len(bin(tmp_finite_field_num.integer_32bits))
-            other_whole_len = len(bin(other.integer_32bits))
-            tmp_finite_field_num = tmp_finite_field_num - FiniteFieldNumber(
-                other.integer_32bits << (tmp_whole_len - other_whole_len), False)
-        return tmp_finite_field_num
+        remainder = FiniteFieldNumber(self.integer, False)
+        while remainder > other:
+            differ_len = len(bin(remainder.integer)) - len(bin(other.integer))
+            remainder = remainder - FiniteFieldNumber(other.integer << differ_len, False)
+        return remainder
 
     def __str__(self):
-        bin_str = bin(self.integer_32bits)[2:]
-
+        bin_str = bin(self.integer)[2:]
         ret_arr = []
-        for index in range(0, len(bin_str)):
+        for index in range(len(bin_str)):
             order_num = len(bin_str) - 1 - index
             if (bin_str[index]) == '1':
                 ret_arr.append('x^' + str(order_num))
