@@ -3,7 +3,7 @@
 This is a repository to record my Python 2.7 study.
 
 ##Python2.7 Study
-- [Python2.7 Study](study), including basic data structures, concurrent, crawler, functional-style, plot, regex
+- [Python2.7 Study](study), including data structures, concurrent, crawler, functional-style, plot, regex
 
 ##Crypto Study
 - [course materials](course_materials), including three assignments and one report about identity-based encryption system, which is 
