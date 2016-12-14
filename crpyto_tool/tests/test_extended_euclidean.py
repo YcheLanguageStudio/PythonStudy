@@ -1,6 +1,13 @@
 from crpyto_tool.libs.extended_euclidean import ExtendedGcdEuclidean
 
 
+def gcd_euclidean(lhs, rhs):
+    if rhs == 0:
+        return lhs
+    else:
+        return gcd_euclidean(rhs, lhs % rhs)
+
+
 def test_extended_gcd_euclidean(modulo_num, another_num):
     extend_euclidean_algo = ExtendedGcdEuclidean(modulo_num=modulo_num, another_num=another_num)
     for i in range(0, len(extend_euclidean_algo.iter_list) - 1):
@@ -18,6 +25,8 @@ def test_extended_gcd_euclidean(modulo_num, another_num):
 
 
 if __name__ == '__main__':
+    print 'Demo gcd of 24 and 36 is:' + str(gcd_euclidean(24, 36)) + '\n'
+
     test_extended_gcd_euclidean(1759, 550)
     test_extended_gcd_euclidean(1137, 29)
     test_extended_gcd_euclidean(37, 49)

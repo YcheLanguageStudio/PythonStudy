@@ -1,10 +1,3 @@
-def gcd_euclidean(lhs, rhs):
-    if rhs == 0:
-        return lhs
-    else:
-        return gcd_euclidean(rhs, lhs % rhs)
-
-
 class EngIndexBiMap:
     def __init__(self):
         self.char2index_dict = dict()
@@ -21,19 +14,17 @@ class EngIndexBiMap:
 
 
 # val from 0 to 25
-def encrypt(letter_index, k0, k1):
+def encrypt_functor(letter_index, k0, k1):
     return (letter_index * k0 + k1) % 26
 
 
-def cipher(msg, k0, k1):
+def encrypt_message(msg, k0, k1):
     my_bimap = EngIndexBiMap()
-    cipher_text = map(lambda ele: my_bimap.index2char(encrypt(my_bimap.char2index(ele), k0, k1)), msg)
+    cipher_text = map(lambda ele: my_bimap.index2char(encrypt_functor(my_bimap.char2index(ele), k0, k1)), msg)
     return cipher_text
 
 
 if __name__ == '__main__':
-    print 'Demo gcd of 24 and 36 is:' + str(gcd_euclidean(24, 36)) + '\n'
-
-    cipher_text = cipher('lecture', 3, 1)
+    cipher_text = encrypt_message('lecture', 3, 1)
     print cipher_text
     print ''.join(cipher_text)
