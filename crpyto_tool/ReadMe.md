@@ -12,6 +12,7 @@ basic operations are provided
 
 ##Cipher
 - [Substitution Cipher](libs/substitution_cipher.py), a simple substitution cipher
+- [RSA](libs/rsa.py), public-key cipher: rsa
 
 ##Hash Related
 - [HMAC](libs/hmac.py), hmac implementation with `md5` as the hash function 
