@@ -16,6 +16,7 @@ basic operations are provided
 
 ###Public-Key
 - [RSA](libs/rsa.py), public-key cipher: rsa
+- [RSA-Variant](libs/rsa_with_chinese_remainder.py), public=key cipher: rsa-variant with chinese remainder
 - [Elgamal](libs/elgamal.py), public-key cipher: elgamal
 
 ##Hash Related
