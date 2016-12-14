@@ -11,8 +11,12 @@ basic operations are provided
 - [Basic](libs/chinese_remainder_theorem.py), chinese remainder theorem implementation
 
 ##Cipher
+###Symmetric
 - [Substitution Cipher](libs/substitution_cipher.py), a simple substitution cipher
+
+###Public-Key
 - [RSA](libs/rsa.py), public-key cipher: rsa
+- [Elgamal](libs/elgamal.py), public-key cipher: elgamal
 
 ##Hash Related
 - [HMAC](libs/hmac.py), hmac implementation with `md5` as the hash function 
