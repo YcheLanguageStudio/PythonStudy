@@ -45,10 +45,16 @@ class FiniteFieldNumber:
         return remainder
 
     def __str__(self):
-        bin_str = bin(self.integer)[2:]
-        ret_arr = []
-        for index in range(len(bin_str)):
-            order_num = len(bin_str) - 1 - index
-            if (bin_str[index]) == '1':
-                ret_arr.append('x^' + str(order_num))
-        return ' + '.join(ret_arr)
+        if self.integer == 0:
+            return '0'
+        else:
+            bin_str = bin(self.integer)[2:]
+            ret_arr = []
+            for index in range(len(bin_str)):
+                order_num = len(bin_str) - 1 - index
+                if (bin_str[index]) == '1':
+                    if order_num != 0:
+                        ret_arr.append('x^' + str(order_num))
+                    else:
+                        ret_arr.append('1')
+            return ' + '.join(ret_arr)

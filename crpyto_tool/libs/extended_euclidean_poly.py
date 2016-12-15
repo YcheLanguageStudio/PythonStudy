@@ -17,7 +17,7 @@ class ExtendedGcdEuclidean:
         self.q_list.append(self.r_list[next_tail_index - 2] / self.r_list[next_tail_index - 1])
         self.r_list.append(self.r_list[next_tail_index - 2] % self.r_list[next_tail_index - 1])
 
-        if self.r_list[next_tail_index].integer_32bits == 0:
+        if self.r_list[next_tail_index].integer == 0:
             self.is_break = True
         else:
             self.x_list.append(self.x_list[next_tail_index - 2] -
