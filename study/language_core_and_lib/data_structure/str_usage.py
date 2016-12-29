@@ -11,3 +11,5 @@ if re.match('.*[Aa]nswer.*', my_str):
     print my_str
 else:
     print 'bad'
+
+print type('1,2,3'.split())
