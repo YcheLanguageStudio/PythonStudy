@@ -1,6 +1,6 @@
 # Python Study
 ##Python2.7 Study
-- [Python2.7 Study](study), including data structures, concurrent, crawler, functional-style, plot, regex usage demo.
+- [Python2.7 Study](study), which is split into two parts, namely 1) language core and libraries, 2) third party libraries
 
 ##Crypto Study
 - [Course Materials](course_materials), which covers following contents.
