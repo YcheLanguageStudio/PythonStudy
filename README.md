@@ -30,15 +30,15 @@ content | detail
 
 content | detail
 --- | ---
-[Finite Field](crypto_tool/libs/finite_field_op.py)  | number theorem about finite filed
-[With Integer](crypto_tool/libs/extended_euclidean.py), [With Finite Filed](crypto_tool/libs/extended_euclidean_poly.py)  | extended eculidean algorithm with integer and finite field number
-[Chinese RemainderUsage](crypto_tool/libs/chinese_remainder_theorem.py)  | chinese remainder theorem
-[Substitution Cipher](crypto_tool/libs/substitution_cipher.py) | symmetric-key cipher
-[RSA](crypto_tool/libs/rsa.py) | public-key cipher: rsa
-[RSA-Variant](crypto_tool/libs/rsa_with_chinese_remainder.py) | public-key cipher: rsa-variant with chinese remainder
-[Elgamal](crypto_tool/libs/elgamal.py) | public-key cipher: elgamal
-[HMAC](crypto_tool/libs/hmac.py) | hmac implementation with `md5` as the hash function
-[SHA-1](crypto_tool/libs/sha1.py) | components in sha1 implementation
+[Finite Field](crpyto_tool/libs/finite_field_op.py)  | number theorem about finite filed
+[With Integer](crpyto_tool/libs/extended_euclidean.py), [With Finite Filed](crpyto_tool/libs/extended_euclidean_poly.py)  | extended eculidean algorithm with integer and finite field number
+[Chinese RemainderUsage](crpyto_tool/libs/chinese_remainder_theorem.py)  | chinese remainder theorem
+[Substitution Cipher](crpyto_tool/libs/substitution_cipher.py) | symmetric-key cipher
+[RSA](crpyto_tool/libs/rsa.py) | public-key cipher: rsa
+[RSA-Variant](crpyto_tool/libs/rsa_with_chinese_remainder.py) | public-key cipher: rsa-variant with chinese remainder
+[Elgamal](crpyto_tool/libs/elgamal.py) | public-key cipher: elgamal
+[HMAC](crpyto_tool/libs/hmac.py) | hmac implementation with `md5` as the hash function
+[SHA-1](crpyto_tool/libs/sha1.py) | components in sha1 implementation
 
 ##Other
 - [other](other), some useful links of python repositories
