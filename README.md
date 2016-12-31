@@ -1,7 +1,5 @@
-# Python Study
+#Python Study
 ##Python2.7 Study
-- [Python2.7 Study](study), which is split into two parts, namely 1) language core and libraries, 2) third party libraries
-
 - language core
 
 content | detail 
@@ -12,7 +10,6 @@ content | detail
 [os](study/language_core_and_lib/os) | rename, system 
 [regex](study/language_core_and_lib/regex) | regex 
 
-
 - third-party libraries
 
 content | detail 
@@ -21,12 +18,20 @@ content | detail
 [numpy-usage](study/third_party_library/numpy_usage) | numpy
 [plot](study/third_party_library/plot) | matplot
 
-##Crypto Study
-- [Course Materials](course_materials), which covers following contents.
+##Software Analysis Study
+- [software analysis tools](software_analysis_tool), corresponding dataset is held in [software_analysis_tool/dataset](software_analysis_tool/dataset)
+
+content | detail
+--- | ---
+[def-use coverage](software_analysis_tool/def_use_coverage.py) | def-use coverage, dependency is networkx
+[prime-path-coverage](software_analysis_tool/prime_path_coverage.py) | prime-path coverage, dendency is networkx
+
+##Cryptography Study
+- [course materials](course_materials), which covers following contents.
   - three assignments, [assign1](course_materials/crypto_homework1), [assign2](course_materials/crypto_homework2), [assign3](course_materials/crypto_homework3)
   - one report about identity-based encryption system, which is one type of public-key cipher, [identity-based encryption report](course_materials/project_ibe)
 
-- [Cryptography Tools](crpyto_tool), which covers following contents.
+- [cryptography tools](crpyto_tool), which covers following contents.
 
 content | detail
 --- | ---
@@ -41,4 +46,4 @@ content | detail
 [SHA-1](crpyto_tool/libs/sha1.py) | components in sha1 implementation
 
 ##Other
-- [other](other), some useful links of python repositories
+- [userful links](other), some useful links of python repositories
