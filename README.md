@@ -23,10 +23,10 @@ content | detail
 
 ##Crypto Study
 - [Course Materials](course_materials), which covers following contents.
-  - three assignments
-  - one report about identity-based encryption system, which is one type of public-key cipher.
+  - three assignments, [assign1](course_materials/crypto_homework1), [assign2](course_materials/crypto_homework2), [assign3](course_materials/crypto_homework3)
+  - one report about identity-based encryption system, which is one type of public-key cipher, [identity-based encryption report](course_materials/project_ibe)
 
-- [Cryptography Tool](crpyto_tool), which covers following contents.
+- [Cryptography Tools](crpyto_tool), which covers following contents.
 
 content | detail
 --- | ---
