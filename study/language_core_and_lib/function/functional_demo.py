@@ -38,7 +38,7 @@ def demo_zip():
 
 
 def demo_sort():
-    print sorted(range(10), lambda x, y: 1 if x < y else -1)
+    print sorted(range(10), lambda x, y: 0 if x == y else 1 if x < y else -1)
 
 
 if __name__ == '__main__':
