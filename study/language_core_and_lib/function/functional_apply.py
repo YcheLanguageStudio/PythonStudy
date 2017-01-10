@@ -16,6 +16,21 @@ def demo_anonymous_lambda():
                 (222,))
 
 
+def demo_y_combiner():
+    def get_y_combiner():
+        return lambda f: \
+            (lambda x: f(lambda v: x(x)(v))) \
+                (lambda x: f(lambda v: x(x)(v)))
+
+    Y = get_y_combiner()
+    print apply(apply(Y,
+                      (lambda fact: \
+                           lambda n: \
+                               1 if n == 0 else fact(n - 1) * n,)),
+                (5,))
+
+
 if __name__ == '__main__':
     demo_curry0()
     demo_anonymous_lambda()
+    demo_y_combiner()
