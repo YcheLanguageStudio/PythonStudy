@@ -6,7 +6,7 @@ content | detail
 --- | --- 
 [cocurrent](study/language_core_and_lib/concurrent) | thread_pool
 [data structure](study/language_core_and_lib/data_structure) | algorithm, structure, collection, string 
-[function](study/language_core_and_lib/function) | function, operator 
+[function](study/language_core_and_lib/function) | functional-style, operator 
 [os](study/language_core_and_lib/os) | rename, system 
 [regex](study/language_core_and_lib/regex) | regex 
 
