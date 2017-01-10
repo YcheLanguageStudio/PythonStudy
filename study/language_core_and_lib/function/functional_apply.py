@@ -19,8 +19,8 @@ def demo_anonymous_lambda():
 def demo_y_combiner():
     def get_y_combiner():
         return lambda f: \
-            (lambda x: f(lambda v: x(x)(v))) \
-                (lambda x: f(lambda v: x(x)(v)))
+            (lambda x: apply(f, (lambda v: x(x)(v),))) \
+                (lambda x: apply(f, (lambda v: x(x)(v),)))
 
     Y = get_y_combiner()
     print apply(apply(Y,
