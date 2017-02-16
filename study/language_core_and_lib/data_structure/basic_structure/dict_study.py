@@ -31,6 +31,14 @@ def demo_dict():
     print my_dict
 
 
+def demo_dict_key_tuple():
+    my_dict = {(1, 2): {3}}
+    print my_dict.get((1, 2), None)
+    print my_dict.get((2, 3), None)
+    print my_dict.get((2, 3), None)
+
+
 if __name__ == '__main__':
     demo_bimap()
     demo_dict()
+    demo_dict_key_tuple()
