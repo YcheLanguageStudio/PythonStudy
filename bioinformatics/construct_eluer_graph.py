@@ -14,9 +14,11 @@ def get_post_process_graph():
     odd_v_list = filter(lambda v: graph.degree(v) % 2 == 1, graph.nodes())
     if graph.out_degree(odd_v_list[0]) - graph.in_degree(odd_v_list[0]) < 0:
         graph.add_edge(odd_v_list[0], odd_v_list[1])
+        ret_tuple = odd_v_list[0], odd_v_list[1]
     else:
         graph.add_edge(odd_v_list[1], odd_v_list[0])
-    return graph
+        ret_tuple = odd_v_list[1], odd_v_list[0]
+    return graph, ret_tuple
 
 
 def check_connected_balanced(graph):
@@ -41,11 +43,11 @@ def get_euler_path(graph):
         covered_out_edge_dict[v] = []
 
     while len(global_path) < graph.number_of_edges() + 1:
-        print 'find v with unvisited out edges'
+        # print 'find v with unvisited out edges'
         for v in in_path_v_list:
             if len(covered_out_edge_dict[v]) < graph.out_degree(v):
                 local_path = [v]
-                print 'expand'
+                # print 'expand'
                 last_v = local_path[-1]
                 while len(local_path) == 1 or last_v != v:
                     last_v = local_path[-1]
@@ -62,7 +64,17 @@ def get_euler_path(graph):
 
 
 if __name__ == '__main__':
-    graph = get_post_process_graph()
+    graph, ret_tuple = get_post_process_graph()
     check_connected_balanced(graph)
     v_list = get_euler_path(graph)
-    print 'super str:', v_list[0][0] + ''.join(map(lambda ele: ele[1:], v_list))
+    print ret_tuple
+    print v_list
+
+    for i in xrange(len(v_list) - 2):
+        if v_list[i] == ret_tuple[0] and v_list[i + 1] == ret_tuple[1]:
+            split_idx = i + 2
+            break
+
+    res_list = v_list[split_idx:] + v_list[1:split_idx - 2]
+    print res_list
+    print 'super str:', res_list[0][0] + ''.join(map(lambda ele: ele[1:], res_list))
