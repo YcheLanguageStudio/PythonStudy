@@ -66,6 +66,7 @@ def get_euler_path(graph):
 
 if __name__ == '__main__':
     graph, ret_tuple = get_post_process_graph()
+    print graph.nodes()
     check_connected_balanced(graph)
     v_list = get_euler_path(graph)
     print ret_tuple
