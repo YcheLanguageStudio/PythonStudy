@@ -26,7 +26,7 @@ def check_connected_balanced(graph):
     :type graph: nx.DiGraph
     """
     for v in graph.nodes():
-        print graph.in_degree(v), graph.out_degree(v)
+        assert graph.in_degree(v) == graph.out_degree(v)
     sub_graph_list = nx.weakly_connected_component_subgraphs(graph, True)
     for sub_graph in sub_graph_list:
         print sub_graph.edges()
@@ -43,21 +43,22 @@ def get_euler_path(graph):
         covered_out_edge_dict[v] = []
 
     while len(global_path) < graph.number_of_edges() + 1:
-        # print 'find v with unvisited out edges'
+        print 'find v with unvisited out edges'
         for v in in_path_v_list:
             if len(covered_out_edge_dict[v]) < graph.out_degree(v):
                 local_path = [v]
-                # print 'expand'
+                print 'expand'
                 last_v = local_path[-1]
                 while len(local_path) == 1 or last_v != v:
-                    last_v = local_path[-1]
                     for src, dst in graph.out_edges(last_v):
                         if dst not in covered_out_edge_dict[src]:
                             covered_out_edge_dict[src].append(dst)
                             local_path.append(dst)
                             in_path_v_list.add(dst)
+                            last_v = local_path[-1]
                             break
                 idx = global_path.index(v)
+                print local_path
                 global_path = global_path[0:idx] + local_path + global_path[idx + 1:]
                 break
     return global_path
@@ -72,9 +73,9 @@ if __name__ == '__main__':
 
     for i in xrange(len(v_list) - 2):
         if v_list[i] == ret_tuple[0] and v_list[i + 1] == ret_tuple[1]:
-            split_idx = i + 2
+            split_idx = i + 1
             break
 
-    res_list = v_list[split_idx:] + v_list[1:split_idx - 2]
+    res_list = v_list[split_idx:] + v_list[1:split_idx]
     print res_list
     print 'super str:', res_list[0][0] + ''.join(map(lambda ele: ele[1:], res_list))
