@@ -1,16 +1,18 @@
 import networkx as nx
-from process_sequence_data import *
 
 
-def construct_graph():
-    read_list = get_clone_list()
-    print read_list
+def get_clone_list():
+    with open('read_list.txt') as ifs:
+        return map(lambda ele: ele.strip(), ifs.readlines())
+
+
+def construct_graph(read_list):
+    print 'read list:', read_list
     edge_list = map(lambda ele: (ele[:-1], ele[1:],), read_list)
     return nx.DiGraph(edge_list)
 
 
-def get_post_process_graph():
-    graph = construct_graph()
+def get_post_process_graph(graph):
     odd_v_list = filter(lambda v: graph.degree(v) % 2 == 1, graph.nodes())
     if graph.out_degree(odd_v_list[0]) - graph.in_degree(odd_v_list[0]) < 0:
         graph.add_edge(odd_v_list[0], odd_v_list[1])
@@ -43,11 +45,11 @@ def get_euler_path(graph):
         covered_out_edge_dict[v] = []
 
     while len(global_path) < graph.number_of_edges() + 1:
-        print 'find v with unvisited out edges'
+        print 'find v with unvisited out edges, ',
         for v in in_path_v_list:
             if len(covered_out_edge_dict[v]) < graph.out_degree(v):
                 local_path = [v]
-                print 'expand'
+                print 'expand from vertex:', v,
                 last_v = local_path[-1]
                 while len(local_path) == 1 or last_v != v:
                     for src, dst in graph.out_edges(last_v):
@@ -58,19 +60,20 @@ def get_euler_path(graph):
                             last_v = local_path[-1]
                             break
                 idx = global_path.index(v)
-                print local_path
+                print 'local path:', local_path
                 global_path = global_path[0:idx] + local_path + global_path[idx + 1:]
                 break
     return global_path
 
 
 if __name__ == '__main__':
-    graph, ret_tuple = get_post_process_graph()
-    print graph.nodes()
+    graph, ret_tuple = get_post_process_graph(construct_graph(get_clone_list()))
+    print 'vertex list:', graph.nodes(), '\n'
+
     check_connected_balanced(graph)
     v_list = get_euler_path(graph)
-    print ret_tuple
-    print v_list
+
+    print '\nadded extra edge:', ret_tuple, '\neuler cycle:', v_list
 
     for i in xrange(len(v_list) - 2):
         if v_list[i] == ret_tuple[0] and v_list[i + 1] == ret_tuple[1]:
@@ -78,5 +81,5 @@ if __name__ == '__main__':
             break
 
     res_list = v_list[split_idx:] + v_list[1:split_idx]
-    print res_list
+    print 'euler path:', res_list
     print 'super str:', res_list[0][0] + ''.join(map(lambda ele: ele[1:], res_list))
