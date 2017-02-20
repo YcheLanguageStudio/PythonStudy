@@ -1,5 +1,10 @@
 import networkx as nx
-from process_sequence_data import *
+import itertools
+
+
+def get_clone_list():
+    with open('read_list.txt') as ifs:
+        return map(lambda ele: ele.strip(), ifs.readlines())
 
 
 def get_edge_list(clone_list):
@@ -36,7 +41,7 @@ def dfs_detail(data_graph, record_path, mark_set):
     """
     if len(record_path) == data_graph.number_of_nodes():
         super_str = record_path[0][:len(record_path[0]) - 1] + ''.join(map(lambda ele: ele[-1], record_path))
-        print record_path, super_str
+        print 'path:', record_path, 'super str:', super_str
     else:
         for src_v, dst_v in data_graph.out_edges(record_path[-1]):
             if dst_v not in mark_set:
