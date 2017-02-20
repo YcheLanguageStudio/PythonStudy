@@ -31,7 +31,8 @@ def check_connected_balanced(graph):
         assert graph.in_degree(v) == graph.out_degree(v)
     sub_graph_list = nx.weakly_connected_component_subgraphs(graph, True)
     for sub_graph in sub_graph_list:
-        print sub_graph.edges()
+        print 'connected component:', sub_graph.edges()
+    print
 
 
 def get_euler_path(graph):
