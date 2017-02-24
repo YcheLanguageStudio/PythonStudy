@@ -13,7 +13,7 @@ def z_algorithm_detail(super_str, pat_size):
             if match_num > 0:
                 l, r = k, k + match_num - 1
         else:
-            k_prime = k - l + 1
+            k_prime = k - l
             beta = r - k + 1
             if z_score_arr[k_prime] < beta:
                 z_score_arr[k] = z_score_arr[k_prime]
