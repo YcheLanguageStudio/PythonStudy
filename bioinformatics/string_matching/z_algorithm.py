@@ -3,12 +3,17 @@ unique_character = '$'
 
 def z_algorithm_detail(super_str, pat_size):
     z_score_arr = [0] * len(super_str)
-    l, r = -1, -1
+    l, r = 0, 0
+
+    def get_match_num(begin_0, begin_1):
+        match_num = 0
+        while super_str[begin_0 + match_num] == super_str[begin_1 + match_num]:
+            match_num += 1
+        return match_num
+
     for k in xrange(1, len(super_str)):
         if k > r:
-            match_num = 0
-            while super_str[k + match_num] == super_str[0 + match_num]:
-                match_num += 1
+            match_num = get_match_num(begin_0=k, begin_1=0)
             z_score_arr[k] = match_num
             if match_num > 0:
                 l, r = k, k + match_num - 1
@@ -20,9 +25,7 @@ def z_algorithm_detail(super_str, pat_size):
             elif z_score_arr[k_prime] > beta:
                 z_score_arr[k] = beta
             else:
-                match_num = 0
-                while super_str[r + 1 + match_num] == super_str[r - k + 1 + match_num]:
-                    match_num += 1
+                match_num = get_match_num(begin_0=r + 1, begin_1=r - k + 1)
                 z_score_arr[k] = beta + match_num
                 if match_num > 0:
                     l, r = k, k + z_score_arr[k] - 1
