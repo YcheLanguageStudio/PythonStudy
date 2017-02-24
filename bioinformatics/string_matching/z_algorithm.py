@@ -1,43 +1,38 @@
-import sys
-import time
+unique_character = '$'
 
 
-def extract_z_boxes(P, start=1, max_box_size=sys.maxsize):
-    n = len(P)
-    boxes = [0] * n
+def z_algorithm_detail(super_str, pat_size):
+    z_score_arr = [0] * len(super_str)
     l, r = -1, -1
-
-    for k in xrange(start, n):
+    for k in xrange(1, len(super_str)):
         if k > r:
-            i = 0
-            while k + i < n and P[i] == P[k + i] and i < max_box_size:
-                i += 1
-            boxes[k] = i
-            if i:
-                l = k
-                r = k + i - 1
+            match_num = 0
+            while super_str[k + match_num] == super_str[0 + match_num]:
+                match_num += 1
+            z_score_arr[k] = match_num
+            if match_num > 0:
+                l, r = k, k + match_num - 1
         else:
-            kp = k - l
-            Z_kp = boxes[kp]
-            if Z_kp < r - k + 1:
-                boxes[k] = Z_kp
+            k_prime = k - l + 1
+            beta = r - k + 1
+            if z_score_arr[k_prime] < beta:
+                z_score_arr[k] = z_score_arr[k_prime]
+            elif z_score_arr[k_prime] > beta:
+                z_score_arr[k] = beta
             else:
-                i = r + 1
-                while i < n and P[i] == P[i - k] and i - k < max_box_size:
-                    i += 1
-                boxes[k] = i - k
-                l = k
-                r = i - 1
-    return boxes
+                match_num = 0
+                while super_str[r + 1 + match_num] == super_str[r - k + 1 + match_num]:
+                    match_num += 1
+                z_score_arr[k] = beta + match_num
+                if match_num > 0:
+                    l, r = k, k + z_score_arr[k] - 1
+
+    return filter(lambda idx: z_score_arr[idx] == pat_size, range(len(super_str)))
 
 
-# The pattern you're searching for is simply prepended to the target text
-# and than the z algorithm is run on that concatenation
 def search_pattern_str_z(pat, txt):
-    PT = pat + txt
-    n = len(pat)
-    boxes = extract_z_boxes(PT, start=n, max_box_size=n)
-    return list(map(lambda x: x[0] - n, filter(lambda x: x[1] >= n, enumerate(boxes))))
+    match_list = z_algorithm_detail(pat + unique_character + txt, len(pat))
+    return map(lambda idx: idx - len(pat + unique_character), match_list)
 
 
 def search_pattern_str_naive(pat, txt):
