@@ -3,7 +3,7 @@
 
 content | detail
 --- | ---
-[genomic_mapping.py](genomic_mapping.py) | genomic mapping integral
+[genomic_mapping.py](genomic_mapping/genomic_mapping.py) | genomic mapping integral
 [calculate_genomic_mapping.py](genomic_mapping/calculate_genomic_mapping.py) | simple calculation
 
 
