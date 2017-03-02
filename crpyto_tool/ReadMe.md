@@ -1,4 +1,19 @@
 #Crpyto Tool
+##Summary
+
+content | detail
+--- | ---
+[Finite Field](./libs/finite_field_op.py)  | number theorem about finite filed
+[With Integer](./libs/extended_euclidean.py), [With Finite Filed](./libs/extended_euclidean_poly.py)  | extended eculidean algorithm with integer and finite field number
+[Chinese RemainderUsage](./libs/chinese_remainder_theorem.py)  | chinese remainder theorem
+[Substitution Cipher](./libs/substitution_cipher.py) | symmetric-key cipher
+[RSA](./libs/rsa.py) | public-key cipher: rsa
+[RSA-Variant](./libs/rsa_with_chinese_remainder.py) | public-key cipher: rsa-variant with chinese remainder
+[Elgamal](./libs/elgamal.py) | public-key cipher: elgamal
+[HMAC](./libs/hmac.py) | hmac implementation with `md5` as the hash function
+[SHA-1](./libs/sha1.py) | components in sha1 implementation
+
+
 ##Number Theorem
 - [Finite Field](libs/finite_field_op.py), finite field implementation, $modulo_poly(x)=x^8 + x^4 + x^3+ x + 1$,
 basic operations are provided
