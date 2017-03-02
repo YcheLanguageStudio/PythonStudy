@@ -18,4 +18,4 @@ content | detail
 
 content | detail
 --- | ---
-[z_algorithm](string_matching/z_algorithm.py) | z-algorithm implementation for exact matching
+[z_algorithm.py](string_matching/z_algorithm.py) | z-algorithm implementation for exact matching
