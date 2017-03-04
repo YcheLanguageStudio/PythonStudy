@@ -17,7 +17,7 @@ class SuffixNode:
             return self.end_idx_ref.val - self.start_idx
 
     def __init__(self, suffix_ref=None, start_idx=-1, end_idx_ref=None, suffix_idx=-1):
-        self.children = []
+        self.children_dict = {}
         self.suffix_ref = suffix_ref
         self.edge_label = SuffixNode.InEdgeLabel(start_idx, end_idx_ref)
         self.suffix_idx = suffix_idx
