@@ -1,26 +1,178 @@
 #String Matching
 ##Suffix Tree
-###Some Concepts
-
-- For `SuffixNode`
-
-`self.children_dict`:
-the key is an character, the value is a corresponding child node
-
-
-`self.suffix_idx`: 
-This will be non-negative for leaves and will give index of suffix for the path from root to this leaf. 
-For non-leaf node, it will be -1.
-
-- For `InEdgeLabel`
-
-`self.start_idx`:
-start idx, which is a value type
-
-`self.end_idx_ref`:
-end idx, which is a reference type
+###Implementation 
 
 - [suffix_tree.py](suffix_tree.py)
+
+###Some Concepts
+- Concepts 
+
+```cpp
+/*lastNewNode will point to newly created internal node,
+  waiting for it's suffix link to be set, which might get
+  a new suffix link (other than root) in next extension of
+  same phase. lastNewNode will be set to NULL when last
+  newly created internal node (if there is any) got it's
+  suffix link reset to new internal node created in next
+  extension of same phase. */
+  
+
+/*activeEdge is represeted as input string character
+  index (not the character itself)*/
+    
+Node *newNode(int start, int *end)
+    /*For root node, suffixLink will be set to NULL
+    For internal nodes, suffixLink will be set to root
+    by default in  current extension and may change in
+    next extension*/
+    
+    /*suffixIndex will be set to -1 by default and
+      actual suffix index will be set later for leaves
+      at the end of all phases*/
+
+int walkDown(Node *currNode)
+    /*activePoint change for walk down (APCFWD) using
+     Skip/Count Trick  (Trick 1). If activeLength is greater
+     than current edge length, set next  internal node as
+     activeNode and adjust activeEdge and activeLength
+     accordingly to represent same activePoint*/    
+```
+
+- Procedure
+
+```cpp
+void extendSuffixTree(int pos)
+{
+    /*Extension Rule 1, this takes care of extending all
+    leaves created so far in tree*/
+    leafEnd = pos;
+ 
+    /*Increment remainingSuffixCount indicating that a
+    new suffix added to the list of suffixes yet to be
+    added in tree*/
+    remainingSuffixCount++;
+ 
+    /*set lastNewNode to NULL while starting a new phase,
+     indicating there is no internal node waiting for
+     it's suffix link reset in current phase*/
+    lastNewNode = NULL;
+ 
+    //Add all suffixes (yet to be added) one by one in tree
+    while(remainingSuffixCount > 0) {
+ 
+        if (activeLength == 0)
+            activeEdge = pos; //APCFALZ
+ 
+        // There is no outgoing edge starting with
+        // activeEdge from activeNode
+        if (activeNode->children[text[activeEdge]] == NULL)
+        {
+            //Extension Rule 2 (A new leaf edge gets created)
+            activeNode->children[text[activeEdge]] =
+                                          newNode(pos, &leafEnd);
+ 
+            /*A new leaf edge is created in above line starting
+             from  an existng node (the current activeNode), and
+             if there is any internal node waiting for it's suffix
+             link get reset, point the suffix link from that last
+             internal node to current activeNode. Then set lastNewNode
+             to NULL indicating no more node waiting for suffix link
+             reset.*/
+            if (lastNewNode != NULL)
+            {
+                lastNewNode->suffixLink = activeNode;
+                lastNewNode = NULL;
+            }
+        }
+        // There is an outgoing edge starting with activeEdge
+        // from activeNode
+        else
+        {
+            // Get the next node at the end of edge starting
+            // with activeEdge
+            Node *next = activeNode->children[text[activeEdge]];
+            if (walkDown(next))//Do walkdown
+            {
+                //Start from next node (the new activeNode)
+                continue;
+            }
+            /*Extension Rule 3 (current character being processed
+              is already on the edge)*/
+            if (text[next->start + activeLength] == text[pos])
+            {
+                //If a newly created node waiting for it's 
+                //suffix link to be set, then set suffix link 
+                //of that waiting node to curent active node
+                if(lastNewNode != NULL && activeNode != root)
+                {
+                    lastNewNode->suffixLink = activeNode;
+                    lastNewNode = NULL;
+                }
+ 
+                //APCFER3
+                activeLength++;
+                /*STOP all further processing in this phase
+                and move on to next phase*/
+                break;
+            }
+ 
+            /*We will be here when activePoint is in middle of
+              the edge being traversed and current character
+              being processed is not  on the edge (we fall off
+              the tree). In this case, we add a new internal node
+              and a new leaf edge going out of that new node. This
+              is Extension Rule 2, where a new leaf edge and a new
+            internal node get created*/
+            splitEnd = (int*) malloc(sizeof(int));
+            *splitEnd = next->start + activeLength - 1;
+ 
+            //New internal node
+            Node *split = newNode(next->start, splitEnd);
+            activeNode->children[text[activeEdge]] = split;
+ 
+            //New leaf coming out of new internal node
+            split->children[text[pos]] = newNode(pos, &leafEnd);
+            next->start += activeLength;
+            split->children[text[next->start]] = next;
+ 
+            /*We got a new internal node here. If there is any
+              internal node created in last extensions of same
+              phase which is still waiting for it's suffix link
+              reset, do it now.*/
+            if (lastNewNode != NULL)
+            {
+            /*suffixLink of lastNewNode points to current newly
+              created internal node*/
+                lastNewNode->suffixLink = split;
+            }
+ 
+            /*Make the current newly created internal node waiting
+              for it's suffix link reset (which is pointing to root
+              at present). If we come across any other internal node
+              (existing or newly created) in next extension of same
+              phase, when a new leaf edge gets added (i.e. when
+              Extension Rule 2 applies is any of the next extension
+              of same phase) at that point, suffixLink of this node
+              will point to that internal node.*/
+            lastNewNode = split;
+        }
+ 
+        /* One suffix got added in tree, decrement the count of
+          suffixes yet to be added.*/
+        remainingSuffixCount--;
+        if (activeNode == root && activeLength > 0) //APCFER2C1
+        {
+            activeLength--;
+            activeEdge = pos - remainingSuffixCount + 1;
+        }
+        else if (activeNode != root) //APCFER2C2
+        {
+            activeNode = activeNode->suffixLink;
+        }
+    }
+}
+
+```
 
 ###Suffix Link
 
