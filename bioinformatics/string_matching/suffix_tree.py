@@ -13,7 +13,7 @@ class SuffixNode:
             assert isinstance(self.end_idx_ref, EndIdx)
             return self.end_idx_ref.val - self.start_idx
 
-    def __init__(self, start_idx=-1, end_idx_ref=None, suffix_ref=None, suffix_idx=-1):
+    def __init__(self, suffix_ref, start_idx=-1, end_idx_ref=None, suffix_idx=-1):
         self.children_dict = {}
         self.suffix_ref = suffix_ref
         self.edge_label = SuffixNode.InEdgeLabel(start_idx, end_idx_ref)
@@ -43,7 +43,7 @@ class UkknonenAlgorithm:
     def __init__(self, whole_str):
         self.remaining_count = 0
         self.end_idx = EndIdx()
-        self.root_node = SuffixNode()
+        self.root_node = SuffixNode(None)
         self.active_point = ActivePoint(self.root_node, -1, 0)
         self.build_suffix_tree(whole_str)
 
@@ -58,8 +58,8 @@ class UkknonenAlgorithm:
 
                 edge_first_ch = whole_str[self.active_point.active_edge]
                 if edge_first_ch not in self.active_point.active_node.children_dict:
-                    self.active_point.active_node.children_dict[edge_first_ch] = SuffixNode(pos, self.end_idx,
-                                                                                            self.root_node)
+                    self.active_point.active_node.children_dict[edge_first_ch] = SuffixNode(self.root_node, pos,
+                                                                                            self.end_idx)
                     if last_new_node is not None:
                         last_new_node.suffix_ref = self.active_point.active_node
                         last_new_node = None
@@ -77,10 +77,10 @@ class UkknonenAlgorithm:
 
                     # in the middle of edge to split
                     split_end_idx = EndIdx(next_node.edge_label.start_idx + self.active_point.active_len - 1)
-                    split_node = SuffixNode(next_node.edge_label.start_idx, split_end_idx)
+                    split_node = SuffixNode(self.root_node, next_node.edge_label.start_idx, split_end_idx)
                     self.active_point.active_node.children_dict[whole_str[self.active_point.active_edge]] = split_node
 
-                    split_node.children_dict[whole_str[pos]] = SuffixNode(pos, self.end_idx, self.root_node)
+                    split_node.children_dict[whole_str[pos]] = SuffixNode(self.root_node, pos, self.end_idx)
                     next_node.edge_label.start_idx += self.active_point.active_len
                     split_node.children_dict[whole_str[next_node.edge_label.start_idx]] = next_node
 
