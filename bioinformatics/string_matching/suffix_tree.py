@@ -23,14 +23,28 @@ class SuffixNode:
         self.suffix_idx = suffix_idx
 
 
-class PhaseInfo:
-    def __init__(self, last_new_node, active_node):
-        self.last_new_node = last_new_node
-        self.active_node = active_node
-
-
-class ActiveInfo:
+class ActivePoint:
     def __init__(self, active_node, active_edge, active_len):
         self.active_node = active_node
         self.active_edge = active_edge
         self.active_len = active_len
+
+    def walk_down(self, cur_suffix_node):
+        """
+        :type cur_suffix_node: SuffixNode
+        """
+        if self.active_len >= cur_suffix_node.edge_label.edge_len():
+            self.active_edge += cur_suffix_node.edge_label.edge_len()
+            self.active_len -= cur_suffix_node.edge_label.edge_len()
+            self.active_node = cur_suffix_node
+
+
+class UkknonenAlgorithm:
+    def __init__(self, whole_str):
+        print
+
+    def build_suffix_tree(self, whole_str):
+        def do_phase_extension(pos):
+            return
+
+        return
