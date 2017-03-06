@@ -64,12 +64,14 @@ class SuffixTreeApp:
                 self.remaining_count += 1
                 self.end_idx.val = pos
                 last_new_node = None
+
                 while self.remaining_count > 0:
                     if self.active_point.active_len == 0:
                         self.active_point.active_edge = pos
 
                     edge_first_ch = whole_str[self.active_point.active_edge]
                     if edge_first_ch not in self.active_point.active_node.children_dict:
+                        # extension rule 2: create a leaf node
                         self.active_point.active_node.children_dict[edge_first_ch] = SuffixNode(self.root_node, pos,
                                                                                                 self.end_idx)
                         if last_new_node is not None:
@@ -80,6 +82,7 @@ class SuffixTreeApp:
                         if self.active_point.walk_down_if_possible(next_node):
                             continue  # start from next node(the new active node)
 
+                        # extension rule3, trick2, show stopper, next char being processed is on the edge
                         if whole_str[next_node.edge_label.start_idx + self.active_point.active_len] == whole_str[pos]:
                             if last_new_node is not None:
                                 last_new_node.suffix_link = self.active_point.active_node
@@ -88,12 +91,14 @@ class SuffixTreeApp:
                             self.active_point.active_len += 1
                             break
 
-                        # in the middle of edge to split
+                        # in the middle of edge to split, next char being processed is not on the edge
+                        # also in extension rule 2, but create a new leaf node and internal node
                         split_end_idx = EndIdx(next_node.edge_label.start_idx + self.active_point.active_len - 1)
                         split_node = SuffixNode(self.root_node, next_node.edge_label.start_idx, split_end_idx)
-                        self.active_point.active_node.children_dict[
-                            whole_str[self.active_point.active_edge]] = split_node
+                        self.active_point.active_node.children_dict[whole_str[
+                            self.active_point.active_edge]] = split_node  # index split_node, instead of next_node
 
+                        # split_node indices its two children
                         split_node.children_dict[whole_str[pos]] = SuffixNode(self.root_node, pos, self.end_idx)
                         next_node.edge_label.start_idx += self.active_point.active_len
                         split_node.children_dict[whole_str[next_node.edge_label.start_idx]] = next_node
@@ -103,6 +108,7 @@ class SuffixTreeApp:
 
                         last_new_node = split_node
 
+                    # trick1, using suffix link to jump
                     self.remaining_count -= 1
                     if self.active_point.active_node is self.root_node and self.active_point.active_len > 0:
                         self.active_point.active_len -= 1
