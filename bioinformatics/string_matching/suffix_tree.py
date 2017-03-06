@@ -66,6 +66,7 @@ class SuffixTreeApp:
                 last_new_node = None
 
                 while self.remaining_count > 0:
+                    # APCFALZ(active point change for active_len ZERO)
                     if self.active_point.active_len == 0:
                         self.active_point.active_edge = pos
 
@@ -78,6 +79,7 @@ class SuffixTreeApp:
                             last_new_node.suffix_link = self.active_point.active_node
                             last_new_node = None
                     else:
+                        # trick1: skip/count
                         next_node = self.active_point.active_node.children_dict[edge_first_ch]
                         if self.active_point.walk_down_if_possible(next_node):
                             continue  # start from next node(the new active node)
@@ -108,11 +110,11 @@ class SuffixTreeApp:
 
                         last_new_node = split_node
 
-                    # trick1, using suffix link to jump
                     self.remaining_count -= 1
+                    # active_node is root and active_len is ZERO? this case is already taken care by APCFALZ.
                     if self.active_point.active_node is self.root_node and self.active_point.active_len > 0:
-                        self.active_point.active_len -= 1
-                        self.active_point.active_edge = pos - self.remaining_count + 1
+                        self.active_point.active_len -= 1  #
+                        self.active_point.active_edge = pos - (self.remaining_count - 1)
                     elif self.active_point.active_node is not self.root_node:
                         self.active_point.active_node = self.active_point.active_node.suffix_link
 
