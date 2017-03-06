@@ -13,7 +13,7 @@ class SuffixNode:
             self.end_idx_ref = end_idx_ref
 
         def edge_len(self):
-            return 0 if self.end_idx_ref is None else self.end_idx_ref.val - self.start_idx
+            return 0 if self.start_idx == -1 else self.end_idx_ref.val - self.start_idx + 1
 
     def __init__(self, suffix_link, start_idx=-1, end_idx_ref=None, suffix_idx=-1):
         self.children_dict = {}
@@ -50,7 +50,6 @@ class UkknonenAlgorithm:
         self.end_idx = EndIdx()
         self.root_node = SuffixNode(None)
         self.active_point = ActivePoint(self.root_node, -1, 0)
-
         self.build_suffix_tree(whole_str)
 
     def build_suffix_tree(self, whole_str):
@@ -104,6 +103,8 @@ class UkknonenAlgorithm:
 
         for i in xrange(len(whole_str)):
             do_phase_extension(i)
+
+        print 'finish phase computation\n'
         self.mark_suffix_idx(len(whole_str))
 
     def mark_suffix_idx(self, whole_str_len):
@@ -113,14 +114,15 @@ class UkknonenAlgorithm:
             """
             if node_ref.is_leaf():
                 node_ref.suffix_idx = whole_str_len - cur_path_len
+                print node_ref.suffix_idx
                 return
             else:
                 for edge_first_ch in node_ref.children_dict:
-                    node = node_ref.children_dict[edge_first_ch]
-                    dfs_detail(node, cur_path_len + node_ref.edge_label.edge_len())
+                    child_node = node_ref.children_dict[edge_first_ch]
+                    dfs_detail(child_node, cur_path_len + child_node.edge_label.edge_len())
 
         dfs_detail(self.root_node, 0)
 
 
 if __name__ == '__main__':
-    root_node = UkknonenAlgorithm("AAAGTGCTCAATGAAAAGGAA").root_node
+    root_node = UkknonenAlgorithm("CTGCGT$GTCTGC#").root_node
