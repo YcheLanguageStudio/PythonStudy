@@ -34,14 +34,17 @@ class ActivePoint:
         self.active_edge = active_edge
         self.active_len = active_len
 
-    def walk_down_if_possible(self, cur_suffix_node):
+    def walk_down_if_possible(self, cur_node):
         """
-        :type cur_suffix_node: SuffixNode
+        :type cur_node: SuffixNode
         """
-        if self.active_len >= cur_suffix_node.edge_label.edge_len():
-            self.active_edge += cur_suffix_node.edge_label.edge_len()
-            self.active_len -= cur_suffix_node.edge_label.edge_len()
-            self.active_node = cur_suffix_node
+        if self.active_len >= cur_node.edge_label.edge_len():
+            self.active_edge += cur_node.edge_label.edge_len()
+            self.active_len -= cur_node.edge_label.edge_len()
+            self.active_node = cur_node
+            return True
+        else:
+            return False
 
 
 class UkknonenAlgorithm:
@@ -70,7 +73,8 @@ class UkknonenAlgorithm:
                         last_new_node = None
                 else:
                     next_node = self.active_point.active_node.children_dict[edge_first_ch]
-                    self.active_point.walk_down_if_possible(next_node)
+                    if self.active_point.walk_down_if_possible(next_node):
+                        continue  # start from next node(the new active node)
 
                     if whole_str[next_node.edge_label.start_idx + self.active_point.active_len] == whole_str[pos]:
                         if last_new_node is not None:
