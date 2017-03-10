@@ -53,9 +53,10 @@ def max_difference(num_list):
 if __name__ == '__main__':
     input_list = [1, -2, 3, 10, -4, 7, 2, -5]
     scan_list = inclusive_scan(input_list)
+    scan_list = [0] + scan_list
     print input_list
     print scan_list
     print max_difference(scan_list)
 
-    scan_list1 = [2, 4, 7, -1, 3, 6, -2, 4]
+    scan_list1 = [0, 2, 4, 7, -1, 3, 6, -2, 4]
     print max_difference(scan_list1)
