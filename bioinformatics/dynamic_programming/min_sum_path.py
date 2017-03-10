@@ -31,18 +31,22 @@ def min_sum(weight_matrix):
         return min_sum_matrix[i][j]
 
     def print_tree():
-        def dfs_detail(node_ref, node_level):
+        def dfs_detail(node_ref, node_level, cur_idx_pair):
             blank_str = ''.join(["  "] * node_level)[:-1] + '|_' if node_level > 0 else 'root'
-            print '%-50s' % (blank_str + str(node_ref))
+            print '%-50s' % (blank_str + str(node_ref)), cur_idx_pair,
+            if cur_idx_pair[0] < row_num:
+                i, j = cur_idx_pair[0], cur_idx_pair[1]
+                print 'weight:', weight_matrix[i][j], 'min sum:', min_sum_matrix[i][j]
+            else:
+                print
             if node_ref is None:
                 return
             else:
                 for i, j in node_ref:
-                    dfs_detail(prev_pos_matrix[i][j], node_level + 1)
+                    dfs_detail(prev_pos_matrix[i][j], node_level + 1, (i, j))
 
-        dfs_detail([(row_num - 1, col_num - 1)], 0)
+        dfs_detail([(row_num - 1, col_num - 1)], 0, (row_num, col_num))
 
-    print prev_pos_matrix
     min_sum_val = min_sum_detail(row_num - 1, col_num - 1)
     print_tree()
     return min_sum_val
