@@ -54,4 +54,4 @@ def min_sum(weight_matrix):
 
 if __name__ == '__main__':
     matrix = [[1, 2, 9], [3, 4, 8], [5, 6, 7]]
-    print min_sum(matrix)
+    print 'min sum:' + str(min_sum(matrix))

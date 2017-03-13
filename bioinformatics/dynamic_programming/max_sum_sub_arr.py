@@ -54,9 +54,13 @@ if __name__ == '__main__':
     input_list = [1, -2, 3, 10, -4, 7, 2, -5]
     scan_list = inclusive_scan(input_list)
     scan_list = [0] + scan_list
-    print input_list
-    print scan_list
-    print max_difference(scan_list)
+    print 'input list:', input_list
+    print 'scan list:', scan_list
+    min_idx, max_idx, differ = max_difference(scan_list)
+    print 'differ:', differ
+    print 'sub arr input list lower idx:', min_idx, 'value:', input_list[min_idx]
+    print 'sub arr input list upper idx:', max_idx - 1, 'value:', input_list[max_idx - 1]
+    print 'sub arr:', input_list[min_idx:max_idx]
 
-    scan_list1 = [0, 2, 4, 7, -1, 3, 6, -2, 4]
-    print max_difference(scan_list1)
+    # scan_list1 = [0, 2, 4, 7, -1, 3, 6, -2, 4]
+    # print max_difference(scan_list1)

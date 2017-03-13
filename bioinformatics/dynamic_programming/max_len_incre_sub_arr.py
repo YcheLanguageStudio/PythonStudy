@@ -44,7 +44,8 @@ def max_len_incre_sub_arr(arr):
     max_val = max(map(lambda node: node.max_len, node_arr))
     root_node = Node(-1)
     root_node.next_list = filter(lambda node: node.max_len == max_val, node_arr)
-    print max_val
+
+    print 'max incre count:', max_val, '\n'
     print_tree(root_node)
 
 
