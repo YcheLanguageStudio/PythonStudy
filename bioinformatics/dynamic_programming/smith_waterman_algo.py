@@ -89,8 +89,44 @@ def local_alignment(seq0, seq1):
 
         return dp_score_table
 
+    def traceback(table, pair_list):
+        """
+        :type table: np.ndarray
+        """
+        gap_penalty = -1
+
+        def match_score(i, j):
+            return 1 if seq0[i - 1] == seq1[j - 1] else -1
+
+        def dfs_detail(row_idx, col_idx, level):
+            blank_str = ''.join(["  "] * level)[:-1] + '|_' if level > 0 else 'root'
+            print '%-50s' % (blank_str + str((row_idx, col_idx))), 'score at', str((row_idx, col_idx)), ':', \
+                table[row_idx][col_idx]
+
+            if table[row_idx][col_idx] != 0:
+                # diagonal
+                if table[row_idx - 1][col_idx - 1] + match_score(row_idx, col_idx) == table[row_idx][col_idx]:
+                    dfs_detail(row_idx - 1, col_idx - 1, level + 1)
+                # down
+                if table[row_idx - 1][col_idx] + gap_penalty == table[row_idx][col_idx]:
+                    dfs_detail(row_idx - 1, col_idx, level + 1)
+                # right
+                if table[row_idx][col_idx - 1] + gap_penalty == table[row_idx][col_idx]:
+                    dfs_detail(row_idx, col_idx - 1, level + 1)
+
+        for i, j in pair_list:
+            dfs_detail(i, j, 0)
+
     dp_score_table = get_dp_table()
     print 'local alignment table:\n', dp_score_table, '\n'
+    local_maximum = dp_score_table.max()
+    my_pair_list = []
+    for row_idx in xrange(dp_score_table.shape[0]):
+        for col_idx in xrange(dp_score_table.shape[1]):
+            if dp_score_table[row_idx][col_idx] == local_maximum:
+                my_pair_list.append((row_idx, col_idx))
+
+    traceback(dp_score_table, my_pair_list)
 
 
 if __name__ == '__main__':
