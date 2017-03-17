@@ -3,6 +3,7 @@ if __name__ == '__main__':
 
     p = float(observed_list[0] * 2 + observed_list[1]) / (sum(observed_list) * 2)
     q = float(observed_list[2] * 2 + observed_list[1]) / (sum(observed_list) * 2)
+    print p, q
     expected_freq_list = [p ** 2, 2 * p * q, q ** 2]
 
     observed_freq_list = map(lambda num: float(num) / 747, observed_list)
