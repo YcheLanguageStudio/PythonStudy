@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def global_alignment(seq0, seq1):
+def global_alignment_without_beg_penalty(seq0, seq1):
     def get_dp_table():
         dp_score_table = np.ndarray(shape=(len(seq0) + 1, len(seq1) + 1), dtype=int)
         dp_score_table.fill(0)
@@ -132,6 +132,6 @@ def local_alignment(seq0, seq1):
 if __name__ == '__main__':
     seq_str0 = 'GGTTGACTA'
     seq_str1 = 'TGTTACGG'
-    global_alignment(seq0=seq_str0, seq1=seq_str1)
+    global_alignment_without_beg_penalty(seq0=seq_str1, seq1=seq_str0)
     print '\n\n'
-    local_alignment(seq0=seq_str0, seq1=seq_str1)
+    local_alignment(seq0=seq_str1, seq1=seq_str0)
