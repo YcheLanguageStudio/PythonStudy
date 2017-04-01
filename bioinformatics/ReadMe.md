@@ -19,3 +19,9 @@ content | detail
 content | detail
 --- | ---
 [z_algorithm.py](string_matching/z_algorithm.py) | z-algorithm implementation for exact matching
+[suffix tree](suffix_tree.py) | linear suffix tree construction ukkonen algorithm
+
+## Dynamic Programming
+
+see [dynamic_programming](dynamic_programming).
+

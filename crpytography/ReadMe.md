@@ -22,7 +22,7 @@ basic operations are provided
 - [With Integer](libs/extended_euclidean.py), extended eculidean implementation for integers
 - [With Finite Filed](libs/extended_euclidean_poly.py), extended eculidean implementation for finite field numbers
 
-##Chinese Remainder Theorem
+## Chinese Remainder Theorem
 - [Chinese RemainderUsage](libs/chinese_remainder_theorem.py), chinese remainder theorem implementation
 
 ## Cipher
