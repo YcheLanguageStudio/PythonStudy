@@ -1,5 +1,5 @@
-#Python2.7 Study
-##language core
+# Python2.7 Study
+## language core
 
 content | detail 
 --- | --- 
@@ -9,7 +9,7 @@ content | detail
 [os](./language_core_and_lib/os) | rename, system 
 [regex](./language_core_and_lib/regex) | regex 
 
-##third-party libraries
+## third-party libraries
 
 content | detail 
 --- | --- 

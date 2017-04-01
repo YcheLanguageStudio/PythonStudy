@@ -1,5 +1,6 @@
-#Software Analysis Tool
-##Codes
+# Software Analysis Tool
+## Codes
+
 corresponding dataset is held in [./dataset](./dataset)
 
 content | detail
@@ -7,7 +8,7 @@ content | detail
 [def-use coverage](./def_use_coverage.py) | def-use coverage, dependency is networkx
 [prime-path-coverage](./prime_path_coverage.py) | prime-path coverage, dendency is networkx
 
-##Prime Path Coverage
+## Prime Path Coverage
 - Code is: [prime_path_coverage.py](prime_path_coverage.py)
 
 - Implementation, Core is as follows
@@ -62,7 +63,7 @@ reduced one: []
 prime path list:[[4, 5, 4], [5, 4, 5], [5, 4, 6], [0, 2, 3, 6], [0, 2, 4, 5], [0, 2, 4, 6], [0, 1, 2, 3, 6], [0, 1, 2, 4, 5], [0, 1, 2, 4, 6]]
 ```
 
-##Def-Use Path Coverage
+## Def-Use Path Coverage
 - Code is: [def_use_coverage.py](def_use_coverage.py)
 
 - Implementation, similar to [prime_path_coverage.py](prime_path_coverage.py)
