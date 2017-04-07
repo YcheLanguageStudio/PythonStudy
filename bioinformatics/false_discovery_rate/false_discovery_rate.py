@@ -22,5 +22,9 @@ def compute_expectation2(alpha, beta, truth_true_num, truth_false_num):
 
 if __name__ == '__main__':
     print sum([1.0 / (i + 1) for i in range(100)])
-    print compute_expectation(alpha=0.3, beta=0.4, truth_true_num=50, truth_false_num=60)
-    print compute_expectation2(alpha=0.3, beta=0.4, truth_true_num=50, truth_false_num=60)
+
+    print compute_expectation(alpha=0.2, beta=0.9, truth_true_num=2, truth_false_num=1)
+    print compute_expectation2(alpha=0.2, beta=0.9, truth_true_num=2, truth_false_num=1)
+
+    print compute_expectation(alpha=0.2, beta=0.9, truth_true_num=20, truth_false_num=10)
+    print compute_expectation2(alpha=0.2, beta=0.9, truth_true_num=20, truth_false_num=10)
